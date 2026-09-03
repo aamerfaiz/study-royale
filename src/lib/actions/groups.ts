@@ -58,17 +58,14 @@ export async function joinGroupAction(
   redirect(`/groups/${data}`);
 }
 
-export async function updateGroupAction(
+export async function updateGoalAction(
   _prev: ActionState,
   formData: FormData,
 ): Promise<ActionState> {
   const supabase = await createClient();
   const groupId = String(formData.get('group_id') ?? '');
-  const name = String(formData.get('name') ?? '').trim();
   const dailyGoal = Number(formData.get('daily_goal_minutes') ?? 30);
-  const timezone = String(formData.get('timezone') ?? 'UTC');
 
-  if (!name) return { error: 'Give your group a name.' };
   if (!Number.isFinite(dailyGoal) || dailyGoal < 5 || dailyGoal > 480) {
     return { error: 'Daily goal must be between 5 and 480 minutes.' };
   }
@@ -76,17 +73,34 @@ export async function updateGroupAction(
   // RLS restricts this update to the group owner.
   const { error } = await supabase
     .from('groups')
-    .update({
-      name,
-      daily_goal_minutes: Math.round(dailyGoal),
-      timezone,
-    })
+    .update({ daily_goal_minutes: Math.round(dailyGoal) })
     .eq('id', groupId);
 
   if (error) return { error: error.message };
 
-  revalidatePath(`/groups/${groupId}`);
-  redirect(`/groups/${groupId}`);
+  revalidatePath(`/groups/${groupId}`, 'layout');
+  return null;
+}
+
+export async function renameGroupAction(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const supabase = await createClient();
+  const groupId = String(formData.get('group_id') ?? '');
+  const name = String(formData.get('name') ?? '').trim();
+
+  if (!name) return { error: 'Give your group a name.' };
+
+  const { error } = await supabase
+    .from('groups')
+    .update({ name: name.slice(0, 60) })
+    .eq('id', groupId);
+
+  if (error) return { error: error.message };
+
+  revalidatePath(`/groups/${groupId}`, 'layout');
+  return null;
 }
 
 export async function leaveGroupAction(formData: FormData) {

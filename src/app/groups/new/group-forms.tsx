@@ -1,8 +1,12 @@
 'use client';
 
 import { useActionState, useState, useSyncExternalStore } from 'react';
-import { createGroupAction, joinGroupAction, type ActionState } from '@/lib/actions/groups';
-import { Button, Card, FormError, Input, Label } from '@/components/ui';
+import {
+  createGroupAction,
+  joinGroupAction,
+  type ActionState,
+} from '@/lib/actions/groups';
+import { Button, Card, Eyebrow, FormError, Input, Label } from '@/components/ui';
 
 const GOAL_PRESETS = [15, 30, 45, 60];
 
@@ -18,7 +22,7 @@ export function CreateGroupForm({ defaultName }: { defaultName: string }) {
 
   // The streak day rolls over at the group's local midnight, so seed the group
   // with the creator's timezone rather than guessing UTC. This is a
-  // browser-only value, so it renders as UTC on the server and resolves on
+  // browser-only value: it renders as UTC on the server and resolves on
   // hydration instead of causing a mismatch.
   const timezone = useSyncExternalStore(
     subscribeToNothing,
@@ -28,13 +32,13 @@ export function CreateGroupForm({ defaultName }: { defaultName: string }) {
 
   return (
     <Card>
-      <h2 className="text-lg font-semibold">Start a group</h2>
-      <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+      <h2 className="font-display text-[17px] font-semibold">Start a group</h2>
+      <p className="mt-1 text-[12.5px] leading-relaxed text-ink-muted">
         You&apos;ll start solo. Share the invite code afterwards to grow to a
         duo, trio, or squad of four.
       </p>
 
-      <form action={action} className="mt-6 space-y-5">
+      <form action={action} className="mt-5 space-y-5">
         <input type="hidden" name="timezone" value={timezone} />
 
         <div>
@@ -50,8 +54,8 @@ export function CreateGroupForm({ defaultName }: { defaultName: string }) {
         </div>
 
         <div>
-          <Label htmlFor="daily_goal_minutes">Shared daily goal</Label>
-          <div className="mt-2 flex flex-wrap gap-2">
+          <Label>Shared daily goal</Label>
+          <div className="mt-2 flex gap-2">
             {GOAL_PRESETS.map((m) => (
               <button
                 key={m}
@@ -59,27 +63,18 @@ export function CreateGroupForm({ defaultName }: { defaultName: string }) {
                 onClick={() => setGoal(m)}
                 className={
                   goal === m
-                    ? 'rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white'
-                    : 'rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800'
+                    ? 'flex-1 rounded-control border-[1.5px] border-accent bg-accent py-3 text-[13px] font-bold text-white'
+                    : 'flex-1 rounded-control border-[1.5px] border-hairline-strong bg-surface py-3 text-[13px] font-bold text-ink-muted transition hover:border-accent/40'
                 }
               >
-                {m} min
+                {m}m
               </button>
             ))}
           </div>
-          <Input
-            id="daily_goal_minutes"
-            name="daily_goal_minutes"
-            type="number"
-            min={5}
-            max={480}
-            value={goal}
-            onChange={(e) => setGoal(Number(e.target.value))}
-          />
-          <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
-            One goal for the whole group. Everyone has to show up each day or
-            the shared streak is at risk. Day rolls over at midnight in{' '}
-            <span className="font-medium">{timezone}</span>.
+          <input type="hidden" name="daily_goal_minutes" value={goal} />
+          <p className="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
+            One goal for the whole group. The day resets at midnight in{' '}
+            <span className="font-semibold">{timezone}</span>.
           </p>
         </div>
 
@@ -93,7 +88,7 @@ export function CreateGroupForm({ defaultName }: { defaultName: string }) {
   );
 }
 
-export function JoinGroupForm() {
+export function JoinGroupForm({ defaultCode = '' }: { defaultCode?: string }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(
     joinGroupAction,
     null,
@@ -101,21 +96,22 @@ export function JoinGroupForm() {
 
   return (
     <Card>
-      <h2 className="text-lg font-semibold">Join with a code</h2>
-      <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+      <h2 className="font-display text-[17px] font-semibold">Join with a code</h2>
+      <p className="mt-1 text-[12.5px] leading-relaxed text-ink-muted">
         Someone already started a group? Paste the code they shared.
       </p>
 
-      <form action={action} className="mt-6 space-y-5">
+      <form action={action} className="mt-5 space-y-5">
         <div>
-          <Label htmlFor="invite_code">Invite code</Label>
+          <Eyebrow>Invite code</Eyebrow>
           <Input
-            id="invite_code"
             name="invite_code"
             required
             maxLength={8}
+            defaultValue={defaultCode}
             placeholder="A1B2C3D4"
-            className="font-mono uppercase tracking-[0.2em]"
+            autoCapitalize="characters"
+            className="font-display text-center text-[18px] tracking-[0.25em] uppercase"
           />
         </div>
 

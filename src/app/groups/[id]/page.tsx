@@ -1,66 +1,25 @@
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { AppHeader } from '@/components/app-header';
-import { InviteCode } from '@/components/invite-code';
-import { SessionLogger } from '@/components/session-logger';
-import { Avatar, Card } from '@/components/ui';
-import { levelProgress } from '@/lib/gamification';
+import { requireGroup } from '@/lib/group-context';
+import { PageBody } from '@/components/page-header';
+import { StudyLauncher } from '@/components/study-launcher';
+import { StreakTile, LevelTile } from '@/components/stats';
+import { Avatar, Card, Meter, SectionTitle } from '@/components/ui';
 import { relativeTime, startOfLocalDay } from '@/lib/dates';
 
-const GROUP_TYPE_LABEL: Record<string, string> = {
-  solo: 'Solo',
-  duo: 'Duo',
-  trio: 'Trio',
-  squad: 'Squad',
-};
-
-type Profile = {
-  id: string;
-  display_name: string;
-  avatar_url: string | null;
-  total_xp: number;
-  level: number;
-  current_streak: number;
-};
-
-function one<T>(value: T | T[] | null): T | null {
-  return Array.isArray(value) ? (value[0] ?? null) : value;
-}
-
-export default async function GroupPage({
+export default async function GroupHomePage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const { group, members, me, userId } = await requireGroup(id);
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
-
-  // RLS returns nothing here unless the viewer is a member of this group.
-  const { data: group } = await supabase
-    .from('groups')
-    .select('id, name, type, max_members, daily_goal_minutes, timezone, invite_code')
-    .eq('id', id)
-    .maybeSingle();
-
-  if (!group) notFound();
 
   const dayStart = startOfLocalDay(new Date(), group.timezone);
 
-  const [{ data: members }, { data: todaySessions }, { data: recent }] =
+  const [{ data: todaySessions }, { data: recent }, { data: streakRows }, { data: groupRoadmap }] =
     await Promise.all([
-      supabase
-        .from('group_members')
-        .select(
-          'user_id, role, joined_at, users(id, display_name, avatar_url, total_xp, level, current_streak)',
-        )
-        .eq('group_id', id)
-        .order('joined_at', { ascending: true }),
       supabase
         .from('study_sessions')
         .select('user_id, duration_minutes')
@@ -71,182 +30,218 @@ export default async function GroupPage({
         .select('id, user_id, duration_minutes, subject, started_at')
         .eq('group_id', id)
         .order('started_at', { ascending: false })
-        .limit(8),
+        .limit(6),
+      supabase
+        .from('group_streaks')
+        .select('date, hit_goal')
+        .eq('group_id', id)
+        .order('date', { ascending: false })
+        .limit(400),
+      supabase
+        .from('group_roadmaps')
+        .select('id, current_section_index, roadmaps(title)')
+        .eq('group_id', id)
+        .maybeSingle(),
     ]);
 
-  const me = members?.find((m) => m.user_id === user.id);
-  const myProfile = one<Profile>(me?.users ?? null);
-  const isOwner = me?.role === 'owner';
-  const memberCount = members?.length ?? 0;
-  const progress = levelProgress(myProfile?.total_xp ?? 0);
-
-  // "Showed up today" is any session at all — the streak rule doesn't set a
-  // minimum duration (docs/04). The goal minutes are a target, not a gate.
   const minutesToday = new Map<string, number>();
   for (const s of todaySessions ?? []) {
     minutesToday.set(s.user_id, (minutesToday.get(s.user_id) ?? 0) + s.duration_minutes);
   }
-  const showedUpCount = (members ?? []).filter((m) => minutesToday.has(m.user_id)).length;
-  const nameById = new Map(
-    (members ?? []).map((m) => [m.user_id, one<Profile>(m.users)?.display_name ?? 'Someone']),
-  );
+
+  // Consecutive hit days ending at the most recent evaluated day.
+  let streak = 0;
+  for (const row of streakRows ?? []) {
+    if (!row.hit_goal) break;
+    streak++;
+  }
+
+  const myMinutes = minutesToday.get(userId) ?? 0;
+  const goal = group.daily_goal_minutes;
+  const goalMet = myMinutes >= goal;
+  const showedUp = members.filter((m) => minutesToday.has(m.user_id)).length;
+  const nameById = new Map(members.map((m) => [m.user_id, m.display_name]));
+
+  const course = Array.isArray(groupRoadmap?.roadmaps)
+    ? groupRoadmap?.roadmaps[0]
+    : groupRoadmap?.roadmaps;
 
   return (
     <>
-      <AppHeader
-        displayName={myProfile?.display_name ?? 'You'}
-        avatarUrl={myProfile?.avatar_url ?? null}
-        level={myProfile?.level ?? 0}
-        totalXp={myProfile?.total_xp ?? 0}
-      />
-
-      <main className="mx-auto w-full max-w-5xl px-6 py-10">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              {GROUP_TYPE_LABEL[group.type] ?? group.type} · {memberCount} of{' '}
-              {group.max_members}
-            </p>
-            <h1 className="mt-1 text-3xl font-semibold tracking-tight">{group.name}</h1>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-              Shared goal: {group.daily_goal_minutes} min a day · day resets at
-              midnight {group.timezone}
-            </p>
-          </div>
-
-          {isOwner && (
-            <Link
-              href={`/groups/${group.id}/settings`}
-              className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
-            >
-              Group settings
-            </Link>
-          )}
+      <header className="flex items-center justify-between gap-4 px-5 pt-6 sm:px-6">
+        <div className="min-w-0">
+          <p className="text-[12px] font-semibold tracking-[0.02em] text-ink-muted uppercase">
+            {group.name}
+          </p>
+          <h1 className="font-display mt-0.5 truncate text-[22px] font-semibold">
+            Hey {me.display_name.split(' ')[0]} 👋
+          </h1>
         </div>
+        <div className="flex shrink-0 pl-2">
+          {members.map((m) => (
+            <Avatar
+              key={m.user_id}
+              name={m.display_name}
+              src={m.avatar_url}
+              seed={m.user_id}
+              size={34}
+              ring={minutesToday.has(m.user_id) ? '#12B76A' : '#ffffff'}
+              className="-ml-2"
+            />
+          ))}
+        </div>
+      </header>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-5">
-          <div className="space-y-6 lg:col-span-3">
+      <PageBody>
+        <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
+          <div className="space-y-4 lg:col-span-2">
+            <div className="grid grid-cols-2 gap-2.5">
+              <StreakTile days={streak} freezes={me.streak_freezes_remaining} />
+              <LevelTile totalXp={me.total_xp} />
+            </div>
+
             <Card>
-              <div className="flex items-baseline justify-between gap-4">
-                <h2 className="text-lg font-semibold">Today</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400">
-                  {showedUpCount} of {memberCount} showed up
-                </p>
+              <div className="mb-2.5 flex items-center justify-between gap-3">
+                <SectionTitle>Today&apos;s goal</SectionTitle>
+                {goalMet ? (
+                  <span className="rounded-full bg-success-tint px-2.5 py-1 text-[11px] font-bold text-success-ink">
+                    Done ✓
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-sunken px-2.5 py-1 text-[11px] font-bold text-ink-muted">
+                    {goal - myMinutes} min left
+                  </span>
+                )}
               </div>
-
-              <ul className="mt-4 space-y-3">
-                {members?.map((m) => {
-                  const profile = one<Profile>(m.users);
-                  if (!profile) return null;
-                  const mins = minutesToday.get(m.user_id) ?? 0;
-                  const hitGoal = mins >= group.daily_goal_minutes;
-                  const pct = Math.min((mins / group.daily_goal_minutes) * 100, 100);
-
-                  return (
-                    <li key={m.user_id} className="flex items-center gap-3">
-                      <Avatar src={profile.avatar_url} name={profile.display_name} size={32} />
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-baseline justify-between gap-2">
-                          <p className="truncate text-sm font-medium">
-                            {profile.display_name}
-                            {m.user_id === user.id && (
-                              <span className="ml-1.5 text-xs font-normal text-slate-500 dark:text-slate-400">
-                                you
-                              </span>
-                            )}
-                          </p>
-                          <p
-                            className={
-                              mins > 0
-                                ? 'text-xs tabular-nums text-slate-600 dark:text-slate-400'
-                                : 'text-xs text-amber-600 dark:text-amber-500'
-                            }
-                          >
-                            {mins > 0 ? `${mins} min` : 'not yet'}
-                          </p>
-                        </div>
-                        <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-                          <div
-                            className={
-                              hitGoal
-                                ? 'h-full rounded-full bg-emerald-500'
-                                : 'h-full rounded-full bg-indigo-500'
-                            }
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {showedUpCount < memberCount && (
-                <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
-                  Everyone has to log something today or the group streak is at
-                  risk.
-                </p>
-              )}
+              <Meter value={myMinutes / goal} height={10} />
+              <p className="mt-2.5 text-[12px] text-ink-muted">
+                {myMinutes} of {goal} minutes studied today
+              </p>
+              <StudyLauncher
+                groupId={group.id}
+                className="mt-3 w-full"
+                label={goalMet ? 'Log another session' : 'Start studying'}
+              />
             </Card>
 
-            <Card>
-              <h2 className="text-lg font-semibold">Recent activity</h2>
+            {groupRoadmap && course && (
+              <Link href={`/groups/${group.id}/roadmap`} className="block">
+                <div className="rounded-card bg-night p-4 text-white transition hover:opacity-95 sm:p-5">
+                  <p className="text-[11px] font-bold tracking-[0.03em] text-night-eyebrow uppercase">
+                    Continue · Phase {groupRoadmap.current_section_index + 1}
+                  </p>
+                  <p className="font-display mt-1 text-[16px] font-semibold">
+                    {course.title}
+                  </p>
+                  <div className="mt-3 flex items-center justify-between gap-4">
+                    <span className="text-[12px] text-night-ink">
+                      Pick up where the squad is
+                    </span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 6l6 6-6 6" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            )}
+
+            <div>
+              <SectionTitle className="mb-2.5 text-ink-strong">
+                Group activity
+              </SectionTitle>
               {recent && recent.length > 0 ? (
-                <ul className="mt-4 space-y-3">
+                <ul className="space-y-2.5">
                   {recent.map((s) => (
-                    <li key={s.id} className="flex items-baseline justify-between gap-3 text-sm">
-                      <span className="min-w-0 truncate">
-                        <span className="font-medium">{nameById.get(s.user_id)}</span>{' '}
-                        <span className="text-slate-600 dark:text-slate-400">
+                    <li key={s.id} className="flex items-start gap-2.5">
+                      <Avatar
+                        name={nameById.get(s.user_id) ?? '?'}
+                        seed={s.user_id}
+                        size={28}
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[13px] text-ink-strong">
+                          <span className="font-semibold">
+                            {nameById.get(s.user_id)}
+                          </span>{' '}
                           logged {s.duration_minutes} min
                           {s.subject ? ` · ${s.subject}` : ''}
-                        </span>
-                      </span>
-                      <span className="shrink-0 text-xs text-slate-500 dark:text-slate-400">
-                        {relativeTime(s.started_at)}
-                      </span>
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-ink-faint">
+                          {relativeTime(s.started_at)}
+                        </p>
+                      </div>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
-                  Nothing logged yet. Be the one who starts it.
-                </p>
+                <Card>
+                  <p className="text-[13px] text-ink-muted">
+                    Nothing logged yet. Be the one who starts it.
+                  </p>
+                </Card>
               )}
-            </Card>
+            </div>
           </div>
 
-          <div className="space-y-6 lg:col-span-2">
-            <SessionLogger groupId={group.id} />
+          <Card className="lg:sticky lg:top-6">
+            <div className="flex items-baseline justify-between gap-3">
+              <SectionTitle>Today</SectionTitle>
+              <span className="text-[12px] text-ink-muted">
+                {showedUp} of {members.length} showed up
+              </span>
+            </div>
 
-            <Card>
-              <h2 className="text-lg font-semibold">Your progress</h2>
-              <p className="mt-4 text-3xl font-semibold tabular-nums">
-                Level {progress.level}
-              </p>
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-                <div
-                  className="h-full rounded-full bg-indigo-600 transition-all"
-                  style={{ width: `${Math.min(progress.fraction * 100, 100)}%` }}
-                />
-              </div>
-              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                {progress.xpToNext.toLocaleString()} XP to level {progress.level + 1}
-              </p>
-            </Card>
+            <ul className="mt-3.5 space-y-3">
+              {members.map((m) => {
+                const mins = minutesToday.get(m.user_id) ?? 0;
+                return (
+                  <li key={m.user_id} className="flex items-center gap-2.5">
+                    <Avatar
+                      name={m.display_name}
+                      src={m.avatar_url}
+                      seed={m.user_id}
+                      size={32}
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <p className="truncate text-[13px] font-semibold">
+                          {m.display_name}
+                          {m.user_id === userId && (
+                            <span className="ml-1.5 text-[11px] font-normal text-ink-faint">
+                              you
+                            </span>
+                          )}
+                        </p>
+                        <p
+                          className={
+                            mins > 0
+                              ? 'text-[11.5px] tabular-nums text-ink-muted'
+                              : 'text-[11.5px] font-semibold text-gold-ink'
+                          }
+                        >
+                          {mins > 0 ? `${mins} min` : 'not yet'}
+                        </p>
+                      </div>
+                      <Meter
+                        value={mins / goal}
+                        height={6}
+                        className="mt-1.5"
+                        barClassName={mins >= goal ? 'bg-success' : undefined}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
 
-            {memberCount < group.max_members && (
-              <Card>
-                <h2 className="text-lg font-semibold">Invite someone</h2>
-                <p className="mb-4 mt-1 text-sm text-slate-600 dark:text-slate-400">
-                  A group of two is far harder to skip than studying alone.
-                </p>
-                <InviteCode code={group.invite_code} full={false} />
-              </Card>
+            {showedUp < members.length && (
+              <p className="mt-4 text-[11.5px] leading-relaxed text-ink-muted">
+                Everyone has to log something today or the group streak is at risk.
+              </p>
             )}
-          </div>
+          </Card>
         </div>
-      </main>
+      </PageBody>
     </>
   );
 }

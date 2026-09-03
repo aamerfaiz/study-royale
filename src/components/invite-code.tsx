@@ -6,34 +6,30 @@ export function InviteCode({ code, full }: { code: string; full: boolean }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
-    const link = `${window.location.origin}/groups/new?code=${code}`;
     try {
-      await navigator.clipboard.writeText(link);
+      await navigator.clipboard.writeText(
+        `${window.location.origin}/join?code=${code}`,
+      );
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard blocked (insecure context or denied permission) — the code is
+      // Clipboard blocked (insecure context or denied permission). The code is
       // on screen either way, so there's nothing to recover from.
     }
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <code className="rounded-lg bg-slate-100 px-3 py-2 font-mono text-lg tracking-[0.25em] text-slate-900 dark:bg-slate-800 dark:text-slate-100">
+    <div className="flex items-center justify-between gap-3">
+      <span className="font-display text-[20px] font-bold tracking-[0.06em] text-accent">
         {code}
-      </code>
+      </span>
       <button
         onClick={copy}
         disabled={full}
-        className="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+        className="shrink-0 rounded-full border-[1.5px] border-accent px-3.5 py-1.5 text-[12px] font-bold text-accent transition hover:bg-accent-tint disabled:border-hairline-strong disabled:text-ink-faint"
       >
-        {copied ? 'Copied' : 'Copy invite link'}
+        {full ? 'Group full' : copied ? 'Copied' : 'Copy link'}
       </button>
-      {full && (
-        <span className="text-sm text-slate-500 dark:text-slate-400">
-          Group is full
-        </span>
-      )}
     </div>
   );
 }

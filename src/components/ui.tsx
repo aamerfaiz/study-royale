@@ -5,9 +5,40 @@ export function Card({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       className={clsx(
-        'rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900',
+        'rounded-card bg-surface p-4 shadow-card sm:p-5',
         className,
       )}
+      {...props}
+    />
+  );
+}
+
+/** The deep violet-black card used for course and "continue" surfaces. */
+export function NightCard({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={clsx('rounded-card bg-night p-4 text-white sm:p-5', className)}
+      {...props}
+    />
+  );
+}
+
+export function Eyebrow({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={clsx(
+        'text-[11.5px] font-bold tracking-[0.02em] text-ink-muted uppercase',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function SectionTitle({ className, ...props }: ComponentProps<'h2'>) {
+  return (
+    <h2
+      className={clsx('font-display text-[15px] font-semibold', className)}
       {...props}
     />
   );
@@ -17,7 +48,7 @@ export function Label({ className, ...props }: ComponentProps<'label'>) {
   return (
     <label
       className={clsx(
-        'block text-sm font-medium text-slate-700 dark:text-slate-300',
+        'block text-[11.5px] font-bold tracking-[0.02em] text-ink-muted uppercase',
         className,
       )}
       {...props}
@@ -29,7 +60,7 @@ export function Input({ className, ...props }: ComponentProps<'input'>) {
   return (
     <input
       className={clsx(
-        'mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100',
+        'mt-2 w-full rounded-control border-[1.5px] border-hairline-strong bg-surface px-3.5 py-3 text-[14px] font-medium text-ink outline-none transition placeholder:font-normal placeholder:text-ink-faint focus:border-accent',
         className,
       )}
       {...props}
@@ -38,22 +69,26 @@ export function Input({ className, ...props }: ComponentProps<'input'>) {
 }
 
 type ButtonProps = ComponentProps<'button'> & {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'quiet' | 'danger';
+  size?: 'md' | 'sm';
 };
 
-export function Button({ className, variant = 'primary', ...props }: ButtonProps) {
+export function Button({
+  className,
+  variant = 'primary',
+  size = 'md',
+  ...props
+}: ButtonProps) {
   return (
     <button
       className={clsx(
-        'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-60',
-        variant === 'primary' &&
-          'bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500/40',
+        'font-display inline-flex items-center justify-center gap-2 rounded-control font-bold transition disabled:cursor-not-allowed disabled:opacity-55',
+        size === 'md' ? 'px-4 py-3.5 text-[14px]' : 'px-3.5 py-2.5 text-[12.5px]',
+        variant === 'primary' && 'bg-accent text-white hover:bg-accent-hover',
         variant === 'secondary' &&
-          'border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700',
-        variant === 'ghost' &&
-          'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100',
-        variant === 'danger' &&
-          'text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950',
+          'border-[1.5px] border-hairline-strong bg-surface text-ink-strong hover:bg-sunken',
+        variant === 'quiet' && 'text-ink-muted hover:bg-sunken hover:text-ink',
+        variant === 'danger' && 'text-danger hover:bg-danger/8',
         className,
       )}
       {...props}
@@ -61,42 +96,161 @@ export function Button({ className, variant = 'primary', ...props }: ButtonProps
   );
 }
 
-export function FormError({ children }: { children: ReactNode }) {
+/** Pill toggle used for goal presets, durations, and phase filters. */
+export function Chip({
+  active,
+  className,
+  ...props
+}: ComponentProps<'button'> & { active?: boolean }) {
+  return (
+    <button
+      type="button"
+      className={clsx(
+        'shrink-0 rounded-full border-[1.5px] px-3.5 py-2 text-[12.5px] font-bold whitespace-nowrap transition',
+        active
+          ? 'border-accent bg-accent text-white'
+          : 'border-hairline-strong bg-surface text-ink-muted hover:border-accent/40',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function Badge({
+  tone = 'neutral',
+  className,
+  ...props
+}: ComponentProps<'span'> & {
+  tone?: 'neutral' | 'accent' | 'success' | 'gold' | 'flame';
+}) {
+  return (
+    <span
+      className={clsx(
+        'inline-flex items-center rounded-full px-2.5 py-1 text-[10.5px] font-bold tracking-[0.03em] uppercase',
+        tone === 'neutral' && 'bg-sunken text-ink-muted',
+        tone === 'accent' && 'bg-accent-tint text-accent',
+        tone === 'success' && 'bg-success-tint text-success-ink',
+        tone === 'gold' && 'bg-gold-tint text-gold-ink',
+        tone === 'flame' && 'bg-flame-tint text-flame',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function Meter({
+  value,
+  className,
+  barClassName,
+  height = 8,
+}: {
+  /** 0..1 */
+  value: number;
+  className?: string;
+  barClassName?: string;
+  height?: number;
+}) {
+  return (
+    <div
+      className={clsx('overflow-hidden rounded-full bg-hairline', className)}
+      style={{ height }}
+    >
+      <div
+        className={clsx('h-full rounded-full bg-accent transition-all', barClassName)}
+        style={{ width: `${Math.min(Math.max(value, 0), 1) * 100}%` }}
+      />
+    </div>
+  );
+}
+
+export function FormError({ children }: { children?: ReactNode }) {
   if (!children) return null;
   return (
-    <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950/60 dark:text-red-300">
+    <p className="rounded-control bg-danger/10 px-3.5 py-3 text-[12.5px] font-semibold text-danger">
       {children}
     </p>
   );
 }
 
+/**
+ * Deterministic avatar colour so a member keeps the same colour everywhere
+ * without needing a stored value.
+ */
+const AVATAR_COLORS = [
+  '#7C5CFF',
+  '#FF6B4A',
+  '#12B76A',
+  '#2E90FA',
+  '#F45B8D',
+  '#0BC5C0',
+  '#F5A524',
+];
+
+export function avatarColor(seed: string): string {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+}
+
+export function initialsOf(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '?';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 export function Avatar({
-  src,
   name,
+  src,
+  seed,
   size = 36,
+  ring,
+  className,
 }: {
-  src: string | null;
   name: string;
+  src?: string | null;
+  seed?: string;
   size?: number;
+  /** Ring colour, for overlapping avatar stacks. */
+  ring?: string;
+  className?: string;
 }) {
-  const initial = name.trim().charAt(0).toUpperCase() || '?';
-  return src ? (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt=""
-      width={size}
-      height={size}
-      className="rounded-full object-cover"
-      style={{ width: size, height: size }}
-    />
-  ) : (
+  const style: React.CSSProperties = {
+    width: size,
+    height: size,
+    ...(ring ? { border: `2.5px solid ${ring}` } : {}),
+  };
+
+  if (src) {
+    return (
+      // Google avatar URLs are remote and already sized; running them through
+      // next/image would add a proxy hop and cost for no visual gain.
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={src}
+        alt=""
+        className={clsx('shrink-0 rounded-full object-cover', className)}
+        style={style}
+      />
+    );
+  }
+
+  return (
     <span
       aria-hidden
-      className="flex shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
-      style={{ width: size, height: size, fontSize: size * 0.42 }}
+      className={clsx(
+        'font-display flex shrink-0 items-center justify-center rounded-full font-bold text-white',
+        className,
+      )}
+      style={{
+        ...style,
+        background: avatarColor(seed ?? name),
+        fontSize: size * 0.37,
+      }}
     >
-      {initial}
+      {initialsOf(name)}
     </span>
   );
 }
