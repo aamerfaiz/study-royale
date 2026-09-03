@@ -5,7 +5,8 @@ import { PageBody } from '@/components/page-header';
 import { StudyLauncher } from '@/components/study-launcher';
 import { StreakTile, LevelTile } from '@/components/stats';
 import { Avatar, Card, Meter, SectionTitle } from '@/components/ui';
-import { relativeTime, startOfLocalDay } from '@/lib/dates';
+import { localDateInTz, relativeTime, startOfLocalDay } from '@/lib/dates';
+import { currentStreak } from '@/lib/streaks';
 
 export default async function GroupHomePage({
   params,
@@ -49,12 +50,7 @@ export default async function GroupHomePage({
     minutesToday.set(s.user_id, (minutesToday.get(s.user_id) ?? 0) + s.duration_minutes);
   }
 
-  // Consecutive hit days ending at the most recent evaluated day.
-  let streak = 0;
-  for (const row of streakRows ?? []) {
-    if (!row.hit_goal) break;
-    streak++;
-  }
+  const streak = currentStreak(streakRows ?? [], localDateInTz(new Date(), group.timezone));
 
   const myMinutes = minutesToday.get(userId) ?? 0;
   const goal = group.daily_goal_minutes;
