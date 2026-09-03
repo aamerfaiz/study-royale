@@ -35,6 +35,21 @@ Google sign-in needs the provider enabled once in the Supabase dashboard
 - `http://localhost:3000/auth/callback`
 - `https://<your-domain>/auth/callback`
 
+## Seeding the official course
+
+The v1 course ships as content, not a stub:
+`docs/courses/001-course-ai-fullstack-engineer.md` holds the roadmap, the
+section quizzes, and a lesson body for every topic. `npm run export:course`
+merges those three blocks into `supabase/seed/`, and `npm run seed:course`
+writes them to the database (needs `SUPABASE_SERVICE_ROLE_KEY`; pass
+`--sql-out <dir>` to emit SQL to run from the dashboard instead).
+
+Seeding is idempotent — sections, nodes and questions are keyed on their
+natural keys, so re-running an edited course updates in place.
+
+As seeded: 8 sections, 53 nodes (50 with full lesson bodies), 6 quizzes,
+35 questions.
+
 ## Decisions
 
 Three questions `docs/10-mvp-build-plan.md` left open, resolved for v1:
