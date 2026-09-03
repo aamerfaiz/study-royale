@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --experimental-strip-types --test 'src/**/*.test.ts'",
-    "db:types": "supabase gen types typescript --project-id tdzmcgwsputynedudwkj > src/lib/database.types.ts"
+    "db:types": "supabase gen types typescript --project-id tdzmcgwsputynedudwkj > src/lib/database.types.ts",
+    "seed:course": "node --experimental-strip-types --env-file-if-exists=.env.local scripts/seed-course.ts",
+    "export:course": "node --experimental-strip-types scripts/export-course-json.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.5",
