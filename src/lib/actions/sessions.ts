@@ -40,6 +40,11 @@ export async function logSessionAction(
   const result = Array.isArray(data) ? data[0] : data;
   if (!result) return { ok: false, error: 'Session was not recorded.' };
 
+  // Unlocks are checked here rather than on a schedule, so a badge earned by
+  // this session is available on the very next render.
+  await supabase.rpc('evaluate_achievements', {});
+
   revalidatePath(`/groups/${groupId}`);
+  revalidatePath(`/groups/${groupId}/roadmap`);
   return { ok: true, result: result as LogSessionResult };
 }

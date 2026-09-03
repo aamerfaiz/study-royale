@@ -5,6 +5,7 @@ import { PageBody, PageHeader } from '@/components/page-header';
 import { InviteCode } from '@/components/invite-code';
 import { Avatar, Button, Card, Eyebrow, SectionTitle } from '@/components/ui';
 import { startOfLocalDay } from '@/lib/dates';
+import { AchievementGrid, type AchievementView } from '@/components/achievements';
 import { GoalPicker } from './goal-picker';
 
 const TYPE_LABEL: Record<string, string> = {
@@ -28,11 +29,25 @@ export default async function TeamPage({
   const supabase = await createClient();
 
   const dayStart = startOfLocalDay(new Date(), group.timezone);
-  const { data: todaySessions } = await supabase
-    .from('study_sessions')
-    .select('user_id')
-    .eq('group_id', id)
-    .gte('started_at', dayStart.toISOString());
+  const [{ data: todaySessions }, { data: allAchievements }, { data: mine }] =
+    await Promise.all([
+      supabase
+        .from('study_sessions')
+        .select('user_id')
+        .eq('group_id', id)
+        .gte('started_at', dayStart.toISOString()),
+      supabase.from('achievements').select('id, key, name, description, icon'),
+      supabase.from('user_achievements').select('achievement_id').eq('user_id', userId),
+    ]);
+
+  const earnedIds = new Set((mine ?? []).map((r) => r.achievement_id));
+  const achievements: AchievementView[] = (allAchievements ?? []).map((a) => ({
+    key: a.key,
+    name: a.name,
+    description: a.description,
+    icon: a.icon,
+    earned: earnedIds.has(a.id),
+  }));
 
   const activeToday = new Set((todaySessions ?? []).map((s) => s.user_id));
   const formed = daysSince(group.created_at);
@@ -142,6 +157,8 @@ export default async function TeamPage({
                 })}
               </ul>
             </div>
+
+            <AchievementGrid achievements={achievements} />
 
             <Card>
               <SectionTitle>Leave group</SectionTitle>

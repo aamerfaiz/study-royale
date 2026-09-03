@@ -39,6 +39,8 @@ export async function submitQuizAction(
   const result = Array.isArray(data) ? data[0] : data;
   if (!result) return { ok: false, error: 'The attempt was not recorded.' };
 
+  await supabase.rpc('evaluate_achievements', {});
+
   revalidatePath(`/groups/${groupId}/roadmap`);
   revalidatePath(`/groups/${groupId}/leaders`);
   return { ok: true, result: result as SubmitQuizResult };

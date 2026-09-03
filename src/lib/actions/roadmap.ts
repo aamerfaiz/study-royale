@@ -21,6 +21,8 @@ export async function completeNodeAction(
 
   if (error) return { error: error.message };
 
+  await supabase.rpc('evaluate_achievements', {});
+
   revalidatePath(`/groups/${groupId}/roadmap`);
   revalidatePath(`/groups/${groupId}`);
   return { ok: true };

@@ -50,6 +50,16 @@ natural keys, so re-running an edited course updates in place.
 As seeded: 8 sections, 53 nodes (50 with full lesson bodies), 6 quizzes,
 35 questions.
 
+## What's built
+
+All of v1 per `docs/10-mvp-build-plan.md`: Google auth, groups with invite
+codes, session logging with XP, group streaks with weekly freezes, the seeded
+official course, the roadmap with in-app lessons, phase quizzes, per-phase
+leaderboards, and achievements.
+
+Not built, and deliberately out of scope for v1: BYOK AI course generation
+(`docs/06`) and the marketplace (`docs/07`).
+
 ## Decisions
 
 Three questions `docs/10-mvp-build-plan.md` left open, resolved for v1:
@@ -59,6 +69,8 @@ Three questions `docs/10-mvp-build-plan.md` left open, resolved for v1:
 | Streak day boundary | Per-group local timezone, not UTC | `groups.timezone`, `group_local_date()` |
 | Quiz-pass XP bonus | +30, first pass only | `app_config.quiz_pass_xp` |
 | Quiz passing threshold | 70% | `section_quizzes.passing_score_pct` |
+| Member leaves mid-roadmap | Progress kept as history, stops gating the group | `advance_group_section()` |
+| Achievements grant XP? | No — status only, so the consistency-tuned curve isn't distorted | `evaluate_achievements()` |
 
 Both XP constants are rows in `app_config`, so changing either is an UPDATE
 rather than a code change.
