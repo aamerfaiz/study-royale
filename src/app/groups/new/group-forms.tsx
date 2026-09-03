@@ -1,10 +1,13 @@
 'use client';
 
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useState, useSyncExternalStore } from 'react';
 import { createGroupAction, joinGroupAction, type ActionState } from '@/lib/actions/groups';
 import { Button, Card, FormError, Input, Label } from '@/components/ui';
 
 const GOAL_PRESETS = [15, 30, 45, 60];
+
+// The device timezone never changes mid-session, so there is nothing to watch.
+const subscribeToNothing = () => () => {};
 
 export function CreateGroupForm({ defaultName }: { defaultName: string }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(
@@ -12,13 +15,16 @@ export function CreateGroupForm({ defaultName }: { defaultName: string }) {
     null,
   );
   const [goal, setGoal] = useState(30);
-  const [timezone, setTimezone] = useState('UTC');
 
   // The streak day rolls over at the group's local midnight, so seed the group
-  // with the creator's timezone rather than guessing UTC.
-  useEffect(() => {
-    setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone ?? 'UTC');
-  }, []);
+  // with the creator's timezone rather than guessing UTC. This is a
+  // browser-only value, so it renders as UTC on the server and resolves on
+  // hydration instead of causing a mismatch.
+  const timezone = useSyncExternalStore(
+    subscribeToNothing,
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
+    () => 'UTC',
+  );
 
   return (
     <Card>

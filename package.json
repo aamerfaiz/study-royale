@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --experimental-strip-types --test 'src/**/*.test.ts'",
+    "db:types": "supabase gen types typescript --project-id tdzmcgwsputynedudwkj > src/lib/database.types.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.5",
