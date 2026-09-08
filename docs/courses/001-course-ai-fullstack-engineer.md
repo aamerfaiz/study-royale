@@ -1,0 +1,1099 @@
+# Course: AI Full-Stack Engineer Roadmap (2026 Ready)
+
+> Converted from the user-provided PDF into the portable Course Export
+> Schema (see `06-ai-generation-byok.md`). Replaces
+> `courses/001-placeholder-course.md` as the first default/official course
+> shipped in the MVP (see `08-mvp-scope-phasing.md`).
+
+## Raw source (as provided)
+
+```
+AI Full-Stack Engineer Roadmap (2026 Ready)
+
+Goal: Become a Mid-Level AI Full-Stack Engineer capable of building
+real-world AI products using existing software engineering skills combined
+with modern AI technologies.
+
+Target Roles: AI Software Engineer, GenAI Engineer, AI Application
+Engineer, AI Full-Stack Developer.
+
+PHASE 1 — AI Engineering Foundation (Month 1)
+Focus: Python fundamentals, virtual environments, package management,
+async programming, FastAPI, Pydantic, NumPy, Pandas.
+Goal: Build AI-ready backend services.
+
+PHASE 2 — Machine Learning Fundamentals (Month 1-2)
+Learn: ML concepts, training data, features and labels, model evaluation,
+supervised learning, unsupervised learning, neural network basics.
+Recommended: Andrew Ng Machine Learning Specialization.
+
+PHASE 3 — Generative AI Engineering (Month 2-4)
+Learn: LLM architecture, tokens, context windows, prompt engineering,
+system prompts, function calling, structured outputs, AI APIs.
+Build: AI Customer Support Assistant.
+
+PHASE 4 — RAG Engineering (Month 3-5)
+Learn: document processing, chunking, embeddings, vector databases,
+retrieval pipelines.
+Technologies: PostgreSQL pgvector, ChromaDB, Pinecone.
+Build: Healthcare AI Knowledge Assistant.
+
+PHASE 5 — AI Frameworks (Month 4-6)
+Learn: LangChain, LangGraph, agents, tool calling, state machines,
+multi-agent workflows.
+Build: AI agents capable of completing business tasks.
+
+PHASE 6 — Cloud and DevOps for AI (Month 5-7)
+Learn: Docker, Kubernetes basics, CI/CD, Azure OpenAI, Azure AI Studio,
+container deployment.
+
+PHASE 7 — Portfolio Projects
+Project 1: Healthcare AI Assistant — Angular + FastAPI + PostgreSQL +
+pgvector + LLM.
+Project 2: Finance AI Assistant — statement analysis, expense insights.
+Project 3: Developer AI Copilot — code explanation, documentation
+generation, bug analysis.
+
+Daily Routine:
+Weekdays: 30 minutes learning, 30 minutes coding, 20 minutes AI updates.
+Weekends: 4-5 hours project building.
+
+Recommended Resources:
+YouTube: Andrej Karpathy, Microsoft AI, Yannic Kilcher, freeCodeCamp.
+Books: Hands-On Large Language Models; Designing Machine Learning Systems
+(Chip Huyen); Build a Large Language Model From Scratch (Sebastian
+Raschka).
+
+First 30 Days:
+Week 1: Python + FastAPI + AI API integration.
+Week 2: LLM concepts + chatbot development.
+Week 3: RAG implementation.
+Week 4: Docker deployment + Azure basics.
+
+Final Career Positioning: Full-Stack AI Engineer | Building AI-powered
+products using Angular, TypeScript, Node.js, Python, RAG, LLMs and
+Agentic AI.
+```
+
+## Pacing notes (fit to the app's 30-min/day model)
+
+The source roadmap is a ~6-7 month, part-time curriculum (30 min learning +
+30 min coding + 20 min AI-news on weekdays, 4-5 hrs project building on
+weekends). The app's default group goal is **~30 minutes/day**, and a
+group's streak only needs *some* session logged each day — so this
+conversion deliberately breaks every phase into small nodes (mostly
+30-90 minutes each, `requirement_type: 'time'`) rather than a few giant
+nodes. That means:
+- A node is usually clearable in 1-3 daily sessions, so the group sees the
+  roadmap advance frequently instead of staring at one locked section for
+  weeks.
+- Section gating (whole group must clear a section to unlock the next)
+  roughly maps to the original month-long phases, which is a believable
+  gating cadence for a group studying ~30 min/day.
+- Summed required time across all core nodes is ~45-50 hours of focused
+  learning, plus the 4 capstone builds and 3 portfolio projects — consistent
+  with the source's month-by-month spread, not compressed to fit the
+  30-min default (the goal wasn't to shrink the curriculum, just to chunk
+  it into daily-sized pieces).
+- One deliberate deviation from the raw source: of the three vector-DB
+  options listed (PostgreSQL pgvector, ChromaDB, Pinecone), **pgvector is
+  marked required** (not optional) since it runs natively on the app's own
+  Supabase/Postgres stack — the other two are kept as optional alternative
+  nodes for anyone who wants to compare.
+- The "First 30 Days" week-by-week breakdown and the recommended
+  YouTube/book resources from the source aren't separate schema fields —
+  they're folded into node descriptions and an optional Orientation
+  section so nothing from the original is lost.
+
+## Converted structure (Course Export Schema v1)
+
+```json
+{
+  "version": 1,
+  "title": "AI Full-Stack Engineer Roadmap (2026 Ready)",
+  "subject": "ai-engineering",
+  "description": "Become a mid-level AI Full-Stack Engineer capable of building real-world AI products using existing software engineering skills combined with modern AI technologies (LLMs, RAG, agents). Target roles: AI Software Engineer, GenAI Engineer, AI Application Engineer, AI Full-Stack Developer.",
+  "sections": [
+    {
+      "title": "Orientation & Setup",
+      "order": 0,
+      "nodes": [
+        {
+          "title": "Read the roadmap & daily routine",
+          "description": "Understand the goal (mid-level AI Full-Stack Engineer), target roles, and the suggested cadence: 30 min learning + 30 min coding + 20 min AI-news on weekdays, 4-5 hrs project building on weekends. Your group's actual daily goal is whatever you set (default ~30 min/day).",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        },
+        {
+          "title": "Pick a target-role focus",
+          "description": "Optional: decide which target role you're aiming at (AI Software Engineer, GenAI Engineer, AI Application Engineer, or AI Full-Stack Developer) — helps prioritize which portfolio projects to polish later.",
+          "resource_url": null,
+          "is_optional": true,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        },
+        {
+          "title": "Bookmark recommended resources",
+          "description": "Optional supplementary resources: YouTube — Andrej Karpathy, Microsoft AI, Yannic Kilcher, freeCodeCamp. Books — Hands-On Large Language Models; Designing Machine Learning Systems (Chip Huyen); Build a Large Language Model From Scratch (Sebastian Raschka).",
+          "resource_url": null,
+          "is_optional": true,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        }
+      ]
+    },
+    {
+      "title": "Phase 1: AI Engineering Foundation",
+      "order": 1,
+      "nodes": [
+        {
+          "title": "Python fundamentals",
+          "description": "Core Python needed for the rest of the roadmap: syntax, data structures, functions, OOP basics.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 180
+        },
+        {
+          "title": "Virtual environments",
+          "description": "Set up and use a Python virtual environment (venv/uv/poetry) for isolated project dependencies.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        },
+        {
+          "title": "Package management",
+          "description": "Manage dependencies with pip/uv/poetry: installing, pinning, requirements files.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        },
+        {
+          "title": "Async programming",
+          "description": "Python async/await, event loop basics — needed for FastAPI and streaming AI responses.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "FastAPI",
+          "description": "Build a basic REST API with FastAPI: routes, request/response models, dependency injection.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 120
+        },
+        {
+          "title": "Pydantic",
+          "description": "Data validation and settings management with Pydantic models — used everywhere in FastAPI and structured LLM outputs.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "NumPy",
+          "description": "Array operations and numerical computing basics.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Pandas",
+          "description": "DataFrames: loading, cleaning, and transforming tabular data.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        }
+      ]
+    },
+    {
+      "title": "Phase 2: Machine Learning Fundamentals",
+      "order": 2,
+      "nodes": [
+        {
+          "title": "Machine learning concepts",
+          "description": "What ML is, the standard workflow (train/evaluate/deploy), and where it fits vs. traditional software.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Training data",
+          "description": "What makes good training data; data collection and quality basics.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 30
+        },
+        {
+          "title": "Features and labels",
+          "description": "Feature engineering basics and what a label/target is in supervised learning.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 30
+        },
+        {
+          "title": "Model evaluation",
+          "description": "Train/test splits, common metrics (accuracy, precision/recall, RMSE) and overfitting.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "Supervised learning",
+          "description": "Regression and classification basics with a hands-on example.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "Unsupervised learning",
+          "description": "Clustering and dimensionality-reduction basics.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Neural network basics",
+          "description": "Perceptrons, layers, activation functions, and how training via backpropagation works at a conceptual level.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "Andrew Ng Machine Learning Specialization",
+          "description": "Optional deeper dive recommended by the source roadmap — a full external course, not required to advance.",
+          "resource_url": null,
+          "is_optional": true,
+          "requirement_type": "time",
+          "requirement_value": 600
+        }
+      ]
+    },
+    {
+      "title": "Phase 3: Generative AI Engineering",
+      "order": 3,
+      "nodes": [
+        {
+          "title": "LLM architecture",
+          "description": "Transformer basics at a conceptual level — attention, layers, how an LLM generates text.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Tokens",
+          "description": "Tokenization, token limits, and why they matter for cost and context.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 30
+        },
+        {
+          "title": "Context windows",
+          "description": "What a context window is and how it constrains prompt + history + output size.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 30
+        },
+        {
+          "title": "Prompt engineering",
+          "description": "Practical prompting techniques: few-shot examples, instructions, formatting for reliable outputs.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "System prompts",
+          "description": "Using system-level instructions to set persistent behavior/persona for a model.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 30
+        },
+        {
+          "title": "Function calling",
+          "description": "Letting a model invoke defined functions/tools with structured arguments.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Structured outputs",
+          "description": "Forcing/validating JSON or schema-constrained model output (e.g. with Pydantic).",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "AI APIs",
+          "description": "Calling a hosted LLM API (Anthropic/OpenAI/Gemini/etc.) from a backend service.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "Build: AI Customer Support Assistant",
+          "description": "Capstone for this phase — build a working customer support assistant using an LLM API, prompts, and structured outputs.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        }
+      ]
+    },
+    {
+      "title": "Phase 4: RAG Engineering",
+      "order": 4,
+      "nodes": [
+        {
+          "title": "Document processing",
+          "description": "Loading and pre-processing source documents (PDFs, text, HTML) for retrieval.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "Chunking",
+          "description": "Splitting documents into retrieval-sized chunks, with an eye on overlap and semantic boundaries.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "Embeddings",
+          "description": "What embeddings are and how to generate them for text chunks.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Vector databases",
+          "description": "Storing and querying embeddings for similarity search.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Retrieval pipelines",
+          "description": "Wiring retrieval + generation together into a working RAG pipeline.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "PostgreSQL pgvector",
+          "description": "Vector search using pgvector on Postgres — required here since it runs natively on this app's own Supabase/Postgres stack.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "ChromaDB (alternative)",
+          "description": "Optional: try ChromaDB as an alternative vector store to compare against pgvector.",
+          "resource_url": null,
+          "is_optional": true,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "Pinecone (alternative)",
+          "description": "Optional: try Pinecone as a hosted alternative vector store to compare against pgvector.",
+          "resource_url": null,
+          "is_optional": true,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "Build: Healthcare AI Knowledge Assistant",
+          "description": "Capstone for this phase — a RAG-powered knowledge assistant over a healthcare document set.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        }
+      ]
+    },
+    {
+      "title": "Phase 5: AI Frameworks & Agents",
+      "order": 5,
+      "nodes": [
+        {
+          "title": "LangChain",
+          "description": "Chains, prompt templates, and integrations for composing LLM workflows.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "LangGraph",
+          "description": "Graph-based orchestration for more controllable, stateful LLM workflows.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "Agents",
+          "description": "Agent loop basics: planning, acting, observing, and iterating toward a goal.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Tool calling",
+          "description": "Giving an agent tools it can invoke (search, code execution, APIs) and handling results.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "State machines",
+          "description": "Modeling multi-step agent workflows as explicit states/transitions for reliability.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 45
+        },
+        {
+          "title": "Multi-agent workflows",
+          "description": "Coordinating multiple specialized agents on a shared task.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "Build: business-task AI agents",
+          "description": "Capstone for this phase — build AI agents capable of completing real business tasks end-to-end.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        }
+      ]
+    },
+    {
+      "title": "Phase 6: Cloud & DevOps for AI",
+      "order": 6,
+      "nodes": [
+        {
+          "title": "Docker",
+          "description": "Containerize a backend/AI service: Dockerfile basics, images, running containers.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "Kubernetes basics",
+          "description": "Core concepts: pods, deployments, services — enough to understand container orchestration.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 90
+        },
+        {
+          "title": "CI/CD",
+          "description": "Automating build/test/deploy pipelines for an AI service.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Azure OpenAI",
+          "description": "Provisioning and calling models through Azure OpenAI.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Azure AI Studio",
+          "description": "Using Azure AI Studio for model/prompt management and evaluation.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        },
+        {
+          "title": "Container deployment",
+          "description": "Deploying a containerized AI service to a cloud target.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "time",
+          "requirement_value": 60
+        }
+      ]
+    },
+    {
+      "title": "Phase 7: Portfolio Projects",
+      "order": 7,
+      "nodes": [
+        {
+          "title": "Project 1: Healthcare AI Assistant",
+          "description": "Full build using Angular + FastAPI + PostgreSQL + pgvector + LLM — a RAG-powered assistant, portfolio-ready.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        },
+        {
+          "title": "Project 2: Finance AI Assistant",
+          "description": "Build an assistant with statement analysis and expense-insights features.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        },
+        {
+          "title": "Project 3: Developer AI Copilot",
+          "description": "Build a copilot with code explanation, documentation generation, and bug analysis features.",
+          "resource_url": null,
+          "is_optional": false,
+          "requirement_type": "checkoff",
+          "requirement_value": null
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Notes
+- `source_type`: `official`
+- `visibility`: `public`
+- `created_by`: system/app account (not a user)
+- Final career positioning (from source): *"Full-Stack AI Engineer |
+  Building AI-powered products using Angular, TypeScript, Node.js, Python,
+  RAG, LLMs and Agentic AI."* — kept here for reference; not a schema field.
+
+## Section quizzes (hand-authored, per `09-quizzes-and-leaderboards.md`)
+
+Passing score is 70% for all quizzes below. One `section_quizzes` row per
+phase-with-a-quiz, keyed here by `section_order` (matches `order` in the
+roadmap JSON above). Orientation (section 0) and Portfolio Projects
+(section 7, the last section — nothing left to gate) have no quiz.
+
+```json
+{
+  "quizzes": [
+    {
+      "section_order": 1,
+      "section_title": "Phase 1: AI Engineering Foundation",
+      "title": "Foundation Check",
+      "passing_score_pct": 70,
+      "questions": [
+        {
+          "question_text": "What is the primary purpose of a Python virtual environment?",
+          "options": [
+            "To speed up Python code execution",
+            "To isolate a project's dependencies from the global system Python",
+            "To compile Python to machine code",
+            "To manage multiple Python interpreters simultaneously by default"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Virtual environments isolate a project's installed packages so different projects can use different (even conflicting) dependency versions without interfering with the system Python install."
+        },
+        {
+          "question_text": "In FastAPI, what library is used under the hood for request/response data validation?",
+          "options": ["SQLAlchemy", "Pydantic", "Marshmallow", "Django Forms"],
+          "correct_option_index": 1,
+          "explanation": "FastAPI uses Pydantic models to validate and serialize request and response data."
+        },
+        {
+          "question_text": "Why is async programming particularly relevant when building AI backend services?",
+          "options": [
+            "It makes Python code run in parallel across multiple CPU cores",
+            "It lets the server handle other requests while waiting on slow I/O like an LLM API call, instead of blocking",
+            "It automatically retries failed API calls",
+            "It compiles Python into C for speed"
+          ],
+          "correct_option_index": 1,
+          "explanation": "AI API calls are I/O-bound and can be slow; async lets a single server handle many concurrent requests without blocking on each one."
+        },
+        {
+          "question_text": "Which library would you use to efficiently perform numerical array operations (e.g. vectorized math) in Python?",
+          "options": ["Pandas", "NumPy", "Requests", "FastAPI"],
+          "correct_option_index": 1,
+          "explanation": "NumPy provides fast, vectorized array operations that underpin most of the Python data/ML ecosystem."
+        },
+        {
+          "question_text": "What is Pandas primarily used for?",
+          "options": [
+            "Serving HTTP APIs",
+            "Loading, cleaning, and transforming tabular data",
+            "Managing virtual environments",
+            "Tokenizing text for LLMs"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Pandas' DataFrame is the standard tool for working with tabular data in Python."
+        },
+        {
+          "question_text": "What's a key benefit of using Pydantic models for structured LLM outputs?",
+          "options": [
+            "They make API calls faster",
+            "They let you validate and enforce that a model's output matches an expected schema",
+            "They automatically translate text",
+            "They reduce token usage"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Pydantic models give you a schema to validate an LLM's structured output against, catching malformed responses."
+        }
+      ]
+    },
+    {
+      "section_order": 2,
+      "section_title": "Phase 2: Machine Learning Fundamentals",
+      "title": "ML Fundamentals Check",
+      "passing_score_pct": 70,
+      "questions": [
+        {
+          "question_text": "In supervised learning, what is a \"label\"?",
+          "options": [
+            "A tag describing the dataset's file format",
+            "The known correct output/target value a model is trained to predict",
+            "A comment in the code",
+            "The name of the algorithm used"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Labels are the ground-truth answers a supervised model learns to predict from input features."
+        },
+        {
+          "question_text": "What's the main difference between supervised and unsupervised learning?",
+          "options": [
+            "Supervised learning requires no data",
+            "Supervised learning uses labeled data with known outcomes; unsupervised learning finds patterns in unlabeled data",
+            "Unsupervised learning is only for images",
+            "There is no meaningful difference"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Supervised learning trains on labeled examples; unsupervised learning looks for structure in data with no labels."
+        },
+        {
+          "question_text": "Why do we split data into training and test sets?",
+          "options": [
+            "To make the dataset smaller and faster to load",
+            "To evaluate how well a model generalizes to data it hasn't seen before",
+            "To remove duplicate rows",
+            "It's only needed for neural networks"
+          ],
+          "correct_option_index": 1,
+          "explanation": "A held-out test set measures generalization rather than just memorization of the training data."
+        },
+        {
+          "question_text": "What does \"overfitting\" mean?",
+          "options": [
+            "A model performs well on training data but poorly on new/unseen data",
+            "A model trains too slowly",
+            "A model uses too little data",
+            "A model has too few parameters"
+          ],
+          "correct_option_index": 0,
+          "explanation": "Overfitting is when a model memorizes training data patterns (including noise) rather than learning generalizable patterns."
+        },
+        {
+          "question_text": "In a neural network, what is the role of an activation function?",
+          "options": [
+            "To load training data",
+            "To introduce non-linearity so the network can learn complex patterns",
+            "To split data into train/test sets",
+            "To store the model's weights"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Without non-linear activation functions, stacking layers would collapse into a single linear transformation."
+        },
+        {
+          "question_text": "Which of these is an example of an unsupervised learning task?",
+          "options": [
+            "Predicting house prices from features",
+            "Classifying emails as spam or not spam",
+            "Grouping customers into segments based on purchase behavior, with no predefined labels",
+            "Predicting next month's sales from historical labeled sales data"
+          ],
+          "correct_option_index": 2,
+          "explanation": "Clustering customers with no predefined labels is a classic unsupervised learning task."
+        }
+      ]
+    },
+    {
+      "section_order": 3,
+      "section_title": "Phase 3: Generative AI Engineering",
+      "title": "GenAI Engineering Check",
+      "passing_score_pct": 70,
+      "questions": [
+        {
+          "question_text": "What is a \"token\" in the context of LLMs?",
+          "options": [
+            "A security credential for API access",
+            "A chunk of text (word/subword/character) the model processes as its basic unit of input/output",
+            "A unique user ID",
+            "A billing currency used only by one provider"
+          ],
+          "correct_option_index": 1,
+          "explanation": "LLMs process text as sequences of tokens, not raw characters or whole words."
+        },
+        {
+          "question_text": "What does an LLM's \"context window\" limit?",
+          "options": [
+            "How many API keys a user can have",
+            "The total amount of text (prompt + history + output) the model can consider at once",
+            "The number of users who can call the API simultaneously",
+            "The model's training data size"
+          ],
+          "correct_option_index": 1,
+          "explanation": "The context window caps how much combined input and output text a single request can contain."
+        },
+        {
+          "question_text": "What is the purpose of a system prompt?",
+          "options": [
+            "To log errors from the API",
+            "To set persistent behavior, persona, or instructions that apply throughout a conversation",
+            "To store the API key securely",
+            "To compress tokens for cheaper billing"
+          ],
+          "correct_option_index": 1,
+          "explanation": "System prompts set standing instructions the model should follow across the whole interaction."
+        },
+        {
+          "question_text": "What does \"function calling\" let an LLM do?",
+          "options": [
+            "Directly execute arbitrary code on the server with no restrictions",
+            "Request that a specific, developer-defined function be called with structured arguments, which the app then executes",
+            "Automatically deploy itself to the cloud",
+            "Rewrite its own system prompt"
+          ],
+          "correct_option_index": 1,
+          "explanation": "The model proposes a function call with arguments; the application code decides whether and how to actually run it."
+        },
+        {
+          "question_text": "Why would you request \"structured output\" (e.g. JSON) from an LLM instead of free text?",
+          "options": [
+            "It's required by all LLM providers",
+            "It makes the response easier to reliably parse and validate in code",
+            "It reduces the model's token limit",
+            "It disables hallucination entirely"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Structured output makes downstream parsing predictable, though it doesn't eliminate the need to validate content."
+        },
+        {
+          "question_text": "Which of these best describes effective prompt engineering?",
+          "options": [
+            "Always using the longest possible prompt",
+            "Giving unclear instructions so the model can be creative",
+            "Providing clear instructions, relevant context, and often examples to reliably steer the model's output",
+            "Avoiding all examples so the model isn't biased"
+          ],
+          "correct_option_index": 2,
+          "explanation": "Clear instructions, relevant context, and examples are the core levers for reliable prompting."
+        }
+      ]
+    },
+    {
+      "section_order": 4,
+      "section_title": "Phase 4: RAG Engineering",
+      "title": "RAG Engineering Check",
+      "passing_score_pct": 70,
+      "questions": [
+        {
+          "question_text": "What does RAG stand for?",
+          "options": [
+            "Random Access Generation",
+            "Retrieval-Augmented Generation",
+            "Ranked AI Grouping",
+            "Recursive Agent Graph"
+          ],
+          "correct_option_index": 1,
+          "explanation": "RAG retrieves relevant content and feeds it to the model alongside the query to ground its generation."
+        },
+        {
+          "question_text": "Why do documents get split into \"chunks\" before being indexed for RAG?",
+          "options": [
+            "To make files smaller on disk",
+            "So each piece is small and focused enough to embed and retrieve meaningfully, rather than embedding an entire large document as one unit",
+            "Because vector databases can't store large files",
+            "To remove duplicate content"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Chunking keeps each embedded unit semantically focused, which improves retrieval relevance."
+        },
+        {
+          "question_text": "What is an \"embedding\"?",
+          "options": [
+            "A compressed image format",
+            "A numerical vector representation of text that captures its meaning, used for similarity search",
+            "A type of database index for text search only",
+            "A password hashing algorithm"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Embeddings map text into a vector space where semantic similarity corresponds to vector proximity."
+        },
+        {
+          "question_text": "What is the role of a vector database in a RAG pipeline?",
+          "options": [
+            "It stores the LLM's weights",
+            "It stores and enables similarity search over embeddings, so relevant chunks can be retrieved for a query",
+            "It manages user authentication",
+            "It schedules cron jobs"
+          ],
+          "correct_option_index": 1,
+          "explanation": "The vector database is what makes fast nearest-neighbor retrieval over embeddings possible."
+        },
+        {
+          "question_text": "Why is pgvector a natural fit for this app's RAG features specifically?",
+          "options": [
+            "It's the only vector database that exists",
+            "It runs as a Postgres extension, so it works directly on the app's existing Supabase/Postgres database without a separate service",
+            "It's free while all alternatives are paid",
+            "It doesn't require embeddings"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Since the app already runs on Supabase/Postgres, pgvector avoids standing up a separate vector store."
+        },
+        {
+          "question_text": "In a RAG pipeline, what typically happens after relevant chunks are retrieved for a query?",
+          "options": [
+            "They're discarded and the model answers from memory alone",
+            "They're passed to the LLM as context alongside the query, so the model can ground its answer in that retrieved content",
+            "They're used to retrain the model from scratch",
+            "They replace the user's original query"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Retrieved chunks are injected into the prompt as grounding context for generation."
+        }
+      ]
+    },
+    {
+      "section_order": 5,
+      "section_title": "Phase 5: AI Frameworks & Agents",
+      "title": "Agents & Frameworks Check",
+      "passing_score_pct": 70,
+      "questions": [
+        {
+          "question_text": "What is the basic \"agent loop\" pattern?",
+          "options": [
+            "Train, validate, deploy, repeat",
+            "Plan, act (often using tools), observe the result, and iterate toward a goal",
+            "Chunk, embed, retrieve, generate",
+            "Login, fetch, cache, render"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Agents iterate through planning, taking an action, and observing the outcome until the goal is met."
+        },
+        {
+          "question_text": "What does \"tool calling\" give an AI agent?",
+          "options": [
+            "The ability to change its own system prompt permanently",
+            "The ability to invoke external functions/tools (like search or an API) and use their results to continue toward a goal",
+            "Faster token generation",
+            "Access to the vector database only"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Tool calling lets an agent take real-world actions and incorporate their results into its next steps."
+        },
+        {
+          "question_text": "Why might you model a multi-step agent workflow as an explicit state machine (e.g. with LangGraph) instead of a single freeform loop?",
+          "options": [
+            "It's required by all LLM providers",
+            "It makes the workflow's steps and transitions explicit and controllable, which improves reliability for complex tasks",
+            "It reduces token usage to zero",
+            "It removes the need for tools entirely"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Explicit state machines constrain and make legible what would otherwise be an unpredictable freeform loop."
+        },
+        {
+          "question_text": "What is a \"multi-agent workflow\"?",
+          "options": [
+            "A single agent that generates multiple responses simultaneously",
+            "Multiple specialized agents coordinating together on parts of a shared task",
+            "Running the same agent on multiple servers for speed",
+            "A workflow with multiple system prompts but one agent"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Multi-agent workflows split a task across specialized agents that coordinate toward a shared outcome."
+        },
+        {
+          "question_text": "Which of these is a realistic use case for an AI agent with tool calling, as opposed to a plain single LLM call?",
+          "options": [
+            "Answering \"what is 2+2\"",
+            "Looking up a customer's live order status via an API, then drafting a reply based on the real data returned",
+            "Translating a single static sentence",
+            "Formatting a fixed block of text"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Tool calling is valuable when the answer depends on live/external data a single LLM call can't know on its own."
+        },
+        {
+          "question_text": "What's a key risk multi-step agent frameworks are designed to help manage?",
+          "options": [
+            "The agent running out of disk space",
+            "The agent drifting off-task or looping indefinitely without a clear structure to constrain its steps",
+            "The agent using too many colors in its UI",
+            "The agent's code being too short"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Structured workflows help keep multi-step agents on-task and bounded rather than looping unpredictably."
+        }
+      ]
+    },
+    {
+      "section_order": 6,
+      "section_title": "Phase 6: Cloud & DevOps for AI",
+      "title": "Cloud & DevOps Check",
+      "passing_score_pct": 70,
+      "questions": [
+        {
+          "question_text": "What problem does Docker primarily solve?",
+          "options": [
+            "It replaces the need for a database",
+            "It packages an application with its dependencies into a portable, consistent container that runs the same way anywhere",
+            "It writes code automatically",
+            "It trains machine learning models"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Docker containers bundle an app with its dependencies for consistent, portable execution."
+        },
+        {
+          "question_text": "At a high level, what does Kubernetes manage?",
+          "options": [
+            "Individual lines of application code",
+            "Deploying, scaling, and orchestrating containers across a cluster of machines",
+            "LLM prompt templates",
+            "Vector embeddings"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Kubernetes orchestrates containerized workloads across a cluster: deployment, scaling, and recovery."
+        },
+        {
+          "question_text": "What is the main goal of a CI/CD pipeline?",
+          "options": [
+            "To manually test code before every release",
+            "To automate building, testing, and deploying code changes reliably and repeatedly",
+            "To replace version control",
+            "To generate quiz questions"
+          ],
+          "correct_option_index": 1,
+          "explanation": "CI/CD automates the build-test-deploy cycle so changes ship reliably and repeatably."
+        },
+        {
+          "question_text": "What does Azure OpenAI provide, compared to calling OpenAI's API directly?",
+          "options": [
+            "A completely different set of AI models unrelated to OpenAI's",
+            "Access to OpenAI models hosted and managed within Microsoft Azure's cloud infrastructure",
+            "A free tier with unlimited usage",
+            "Only image generation capabilities"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Azure OpenAI offers OpenAI's models through Azure's infrastructure, useful for orgs standardized on Azure."
+        },
+        {
+          "question_text": "Why containerize an AI service before deploying it to the cloud?",
+          "options": [
+            "Containers make the code shorter",
+            "It ensures the service runs consistently across environments and can be deployed/scaled reliably",
+            "Containers are required by every vector database",
+            "It removes the need for a CI/CD pipeline entirely"
+          ],
+          "correct_option_index": 1,
+          "explanation": "Containerizing a service gives consistent, reproducible deployment and easier scaling."
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Lesson content (node bodies)
+
+**This is the part that makes the app a content platform, not a timer pointing at outside links.** Every `time`-type and `checkoff`-type node below gets a `content` field — the actual lesson body, rendered inside the node detail panel, that a member reads *in the app* before logging their session. `resource_url` (already in the schema) stays as an optional "go deeper" link, not the primary source — the primary source is this text. Quiz nodes don't need this field; their material is the `quiz_questions` already seeded above. See `11-node-content-model.md` for the schema addition (`roadmap_nodes.content`), the UI change this implies, and why lesson content is now core v1 scope rather than deferred.
+
+Voice/format used throughout: direct technical writing, no filler, roughly 120-220 words per topic lesson, a short code example where it earns its place, and a closing line tying back to why the topic matters for the "AI Full-Stack Engineer" end goal. The three Orientation nodes and the two optional vector-DB alternatives (ChromaDB, Pinecone) intentionally stay short — they're orientation/comparison notes, not core lessons. Checkoff "Build" nodes get a **project brief** shape (goal / requirements / stack hint) instead of a concept lesson, since there's nothing to "read up on" beyond what to build.
+
+```json
+{
+  "lessons": [
+    { "section_order": 1, "node_title": "Python fundamentals", "content": "Everything else in this course is Python. If variables, functions, control flow, lists/dicts, and basic classes are already comfortable, skim this and move on — if not, it's worth doing properly before FastAPI and the AI SDKs, which lean on all of it.\n\nThe two habits worth building now: writing small functions instead of long scripts (you'll be wrapping LLM calls in functions constantly), and understanding Python's dict/list comprehensions, because you'll see them everywhere in data-prep and RAG code:\n\n```python\nchunks = [doc[i:i+500] for i in range(0, len(doc), 500)]\n```\n\nAlso get comfortable with type hints (`def greet(name: str) -> str:`) — they're not enforced by Python itself, but FastAPI and Pydantic (coming up next) both read them to do real work: validation, docs generation, and auto-serialization. Skipping type hints now just means re-learning them under pressure later." },
+    { "section_order": 1, "node_title": "Virtual environments", "content": "A virtual environment is an isolated Python install for one project, so its dependencies don't collide with any other project's (or your system Python's). Skipping this is the single most common reason someone's AI project \"works on my machine\" and nowhere else.\n\nFastest modern path, using `uv`:\n\n```bash\nuv venv\nsource .venv/bin/activate\n```\n\nOr the built-in way if you'd rather not add a tool yet:\n\n```bash\npython -m venv .venv\nsource .venv/bin/activate\n```\n\nCheck it off once you've created one for this course's project folder and confirmed `which python` points inside `.venv`, not your system install." },
+    { "section_order": 1, "node_title": "Package management", "content": "Once you're inside a virtual environment, package management is how you track exactly which libraries (and versions) your project depends on — so it's reproducible for you later, and for anyone else who clones it.\n\nWith `uv`:\n\n```bash\nuv add fastapi pydantic\n```\n\nThis writes to `pyproject.toml` and locks exact versions. With plain `pip`, the equivalent is `pip install fastapi pydantic` followed by `pip freeze > requirements.txt` so the versions are captured somewhere.\n\nCheck this off once you've installed FastAPI and Pydantic into this project's environment and have a `pyproject.toml` or `requirements.txt` that reflects it — you'll use both immediately in the next few nodes." },
+    { "section_order": 1, "node_title": "Async programming", "content": "An LLM API call can take several seconds. If your server handles requests synchronously, that's several seconds where the whole process is blocked doing nothing but waiting on a network response. Async lets it handle other requests during that wait instead.\n\nThe core shape:\n\n```python\nasync def get_completion(prompt: str) -> str:\n    async with httpx.AsyncClient() as client:\n        resp = await client.post(API_URL, json={\"prompt\": prompt})\n        return resp.json()[\"text\"]\n```\n\n`async def` marks a function as a coroutine; `await` pauses it (without blocking the whole program) until the awaited call resolves. You don't need to master Python's event loop internals for this course — you do need to recognize that FastAPI route handlers and most AI SDK clients support `async def`, and using it is what lets one server handle many concurrent AI requests instead of queuing them one at a time." },
+    { "section_order": 1, "node_title": "FastAPI", "content": "FastAPI is the backend framework this course builds every service in. It's a natural fit for AI backends specifically because it validates request/response data using Pydantic (next node), supports `async def` routes natively, and generates interactive API docs for free.\n\nA minimal endpoint:\n\n```python\nfrom fastapi import FastAPI\napp = FastAPI()\n\n@app.post(\"/chat\")\nasync def chat(message: str):\n    reply = await call_llm(message)\n    return {\"reply\": reply}\n```\n\nRun it with `uvicorn main:app --reload` and you get a working endpoint plus a docs UI at `/docs` with zero extra code. Every AI service built later in this course — the customer support assistant, the RAG assistant, the agents — is a FastAPI app with more routes and more logic behind them, not a different framework." },
+    { "section_order": 1, "node_title": "Pydantic", "content": "Pydantic models are how you describe the *shape* of data in Python and get it validated automatically — request bodies coming into FastAPI, and (just as important for this course) structured output coming out of an LLM.\n\n```python\nfrom pydantic import BaseModel\n\nclass SupportReply(BaseModel):\n    reply: str\n    escalate_to_human: bool\n    confidence: float\n```\n\nWhen you later ask an LLM to \"return JSON matching this schema,\" this is the schema. Pydantic checks that what comes back actually has the right fields and types, and raises a clear error if it doesn't — instead of your code crashing three steps later on a missing key. This single pattern (define a model, ask the model to fill it, validate on the way in) is the backbone of every \"structured output\" feature in Phase 3 onward." },
+    { "section_order": 1, "node_title": "NumPy", "content": "NumPy's arrays are the fast, vectorized alternative to Python lists for numerical data — and they matter here specifically because an embedding (Phase 4) *is* a NumPy-style array: a fixed-length list of floats representing a piece of text's meaning.\n\n```python\nimport numpy as np\na = np.array([0.12, -0.04, 0.88])\nb = np.array([0.10, -0.02, 0.91])\nsimilarity = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))\n```\n\nThat's cosine similarity — the actual math behind \"find the most relevant document chunk\" in RAG. You won't hand-roll this once you're using a real vector database, but understanding what's happening underneath (comparing vectors, not comparing text) makes every RAG bug a lot easier to reason about." },
+    { "section_order": 1, "node_title": "Pandas", "content": "Pandas' DataFrame is the standard way to load, inspect, and clean tabular data in Python — CSVs, spreadsheets, query results. In this course it shows up whenever a project touches structured data rather than free text: the Finance AI Assistant's statement analysis, for instance, is fundamentally \"load transactions into a DataFrame, then let an LLM reason over a cleaned summary of it.\"\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"transactions.csv\")\nmonthly = df.groupby(df[\"date\"].dt.month)[\"amount\"].sum()\n```\n\nYou don't need deep pandas mastery for this course — `read_csv`, `groupby`, basic filtering, and `to_dict()`/`to_json()` (for handing a clean summary to an LLM prompt) cover most of what comes up later." },
+    { "section_order": 2, "node_title": "Machine learning concepts", "content": "Before touching LLMs specifically, it's worth being clear on what \"machine learning\" means as a category: instead of writing explicit rules for a task, you show a model examples and it learns a function that maps inputs to outputs on its own.\n\nThe standard workflow is: collect data → train a model on it → evaluate how well it generalizes → deploy it → monitor it in production. Every ML system you'll touch in this course — including LLMs, which are just a very large instance of this pattern — follows that same shape. The specific skills in this phase (training data, features/labels, evaluation, supervised/unsupervised learning, neural networks) are the vocabulary for understanding *why* an LLM behaves the way it does later, not a detour from the AI-engineering track — an LLM is a neural network trained this same way, just at a scale that makes the process largely someone else's problem for you as an application builder." },
+    { "section_order": 2, "node_title": "Training data", "content": "A model is only as good as the data it learned from — this is the single most important intuition to carry out of this whole phase, because it explains a huge amount of real-world LLM behavior (biased outputs, blind spots on niche topics, confidently wrong answers on things underrepresented in training data).\n\nGood training data is representative of the real inputs the model will see, sufficiently large, and reasonably clean (mislabeled or duplicated examples actively hurt). You won't be assembling training sets for LLMs in this course — that's a scale of infrastructure outside an application engineer's job — but you *will* be assembling data for RAG (Phase 4) and for evaluating prompts, and the same principle applies there: what you feed in shapes what you get out." },
+    { "section_order": 2, "node_title": "Features and labels", "content": "In supervised learning, a **feature** is one piece of input information the model uses to make a prediction (a house's square footage, an email's word count), and a **label** is the correct answer you're training it to predict (the sale price, spam or not-spam).\n\nDuring training, the model sees many (features → label) pairs and adjusts itself to get better at predicting the label from the features. During inference — actually using the trained model — you give it only the features and it produces its own prediction.\n\nThis vocabulary matters later even outside classic ML: when you evaluate a prompt or a RAG pipeline, you're implicitly doing the same thing — comparing what the system produced against a known-good \"label\" (the expected answer) to judge quality." },
+    { "section_order": 2, "node_title": "Model evaluation", "content": "A model can look great during training and still fail in the real world — the standard fix is holding out a **test set**: data the model never saw during training, used only to check how it performs on new examples.\n\nCommon metrics: accuracy (% correct) for balanced classification tasks; precision and recall when false positives and false negatives matter differently (e.g. a support bot wrongly escalating vs. wrongly not escalating); RMSE for continuous predictions like price estimates.\n\nThe failure mode to watch for is **overfitting**: a model that's memorized training data rather than learned generalizable patterns — great training accuracy, poor test accuracy. The same discipline applies directly to prompt engineering and RAG later: testing on inputs you didn't tune against is the only way to know if a prompt actually works, or just works on the three examples you happened to check." },
+    { "section_order": 2, "node_title": "Supervised learning", "content": "Supervised learning is training a model on labeled examples — each input paired with the correct output — so it can predict outputs for new, unlabeled inputs. It splits into two shapes: **regression** (predicting a continuous number, like a price) and **classification** (predicting a category, like spam/not-spam).\n\nA minimal example with scikit-learn, predicting a category from a couple of features:\n\n```python\nfrom sklearn.linear_model import LogisticRegression\nmodel = LogisticRegression().fit(X_train, y_train)\npredictions = model.predict(X_test)\n```\n\nYou're not expected to become an ML engineer from this one node — the goal is recognizing the pattern (labeled examples in, predictions out) clearly enough that when an LLM's behavior is described later in similar terms (\"trained on next-token prediction\"), it's a specific case of something familiar, not a black box." },
+    { "section_order": 2, "node_title": "Unsupervised learning", "content": "Unsupervised learning finds structure in data that has no labels at all — no \"correct answer\" to train against, just patterns to discover. The two most common shapes are **clustering** (grouping similar items together — customer segments, topic groups) and **dimensionality reduction** (compressing many features down to a few, while preserving the structure that matters).\n\nThis connects directly to Phase 4: when you cluster or search over document embeddings to find semantically similar chunks, that's an unsupervised technique — nobody labeled which chunks are \"similar,\" the vector space just captures it. Recognizing supervised vs. unsupervised patterns makes it much easier to understand *why* a given AI technique works the way it does, rather than treating every tool as an unrelated black box." },
+    { "section_order": 2, "node_title": "Neural network basics", "content": "A neural network is layers of simple units (\"neurons\"), each computing a weighted sum of its inputs and passing it through a non-linear **activation function**, stacked so the network as a whole can approximate very complex functions. Training adjusts every weight in the network (via backpropagation) to reduce the gap between its predictions and the correct answers.\n\nYou don't need to implement backpropagation by hand for this course, but two intuitions carry forward directly into LLMs: (1) more layers and more parameters generally let a network represent more complex patterns, which is a big part of why scale matters for LLM capability, and (2) without the activation function's non-linearity, stacking layers would collapse into nothing more powerful than a single linear equation — the non-linearity is what makes depth actually useful. An LLM is, underneath, a very large neural network trained on next-token prediction; everything in this node is the foundation that sits under it." },
+    { "section_order": 2, "node_title": "Andrew Ng Machine Learning Specialization", "content": "This node is a pointer, not a lesson written into the app — it's the deeper external course the roadmap recommends if you want a rigorous, from-first-principles treatment of everything in this phase (regression, classification, neural networks, and more) beyond the practical level this roadmap covers. It's optional and doesn't block Phase 3: the topic-level lessons above are enough to move forward comfortably." },
+    { "section_order": 3, "node_title": "LLM architecture", "content": "An LLM is a transformer neural network trained to predict the next token given everything before it, repeated one token at a time to generate whole responses. The mechanism that makes it different from earlier architectures is **attention**: for every token it generates, the model weighs how relevant every other token in its context is, rather than processing text strictly left-to-right with a fixed memory.\n\nYou don't need to derive attention mathematically to build with LLMs well, but a few consequences matter practically: the model has no persistent memory between separate API calls (conversation history has to be re-sent every time), it generates one token at a time (which is why streaming responses feel more responsive — you're seeing tokens as they're produced), and everything it \"knows\" is frozen at training time, not live — which is exactly the gap RAG (Phase 4) exists to close." },
+    { "section_order": 3, "node_title": "Tokens", "content": "LLMs don't process text as characters or whole words — they process **tokens**, chunks that are often sub-word pieces (\"engineering\" might be one token, \"unbelievably\" might be three). This matters for three very practical reasons: cost (most APIs bill per token, input and output both), context limits (a model's context window is measured in tokens, not characters), and prompt design (oddly-tokenized inputs, like unusual formatting or rare words, can behave unpredictably).\n\nA rough rule of thumb for English text: about 4 characters per token, or roughly 750 words per 1,000 tokens. When you're estimating whether a document will fit in a context window, or roughly what a request will cost, that ratio is close enough to plan with — but for anything cost-sensitive, actually counting tokens with the provider's tokenizer library beats estimating." },
+    { "section_order": 3, "node_title": "Context windows", "content": "The context window is the total number of tokens a model can consider in one request — system prompt, conversation history, any retrieved documents, and the model's own output, all counted together against one limit. Go over it and the request fails or gets silently truncated, depending on the provider.\n\nThis is the practical constraint that shapes most of the architecture decisions later in this course. It's why RAG (Phase 4) retrieves only the most relevant chunks instead of stuffing an entire knowledge base into the prompt, why long conversations need history-trimming or summarization strategies, and why \"just paste the whole codebase into the prompt\" stops working past a certain project size. When you design a prompt or a pipeline, context window budget is a resource to spend deliberately, not an afterthought to hit and debug later." },
+    { "section_order": 3, "node_title": "Prompt engineering", "content": "Prompt engineering is the practice of structuring your instructions, context, and examples so a model reliably produces the output you actually want — reliability, not one lucky good response, is the goal.\n\nA few techniques that consistently move the needle: being explicit about format (\"respond with exactly three bullet points\" beats \"summarize this\"), giving the model a role or framing when it changes behavior (\"you are a support agent for a SaaS product\"), and **few-shot examples** — showing 1-3 examples of input-to-output pairs in the prompt itself, which is often more reliable than describing the format in words:\n\n```\nClassify sentiment as positive, negative, or neutral.\n\"Great service!\" -> positive\n\"Took forever to ship\" -> negative\n\"It arrived on Tuesday\" -> neutral\n\"{user_text}\" ->\n```\n\nThe habit worth building now: treat every prompt as testable and iteratable, not a one-shot guess — you'll be evaluating and refining prompts constantly from here through the rest of the course." },
+    { "section_order": 3, "node_title": "System prompts", "content": "A system prompt is a standing instruction that shapes the model's behavior across an entire conversation, set once rather than repeated in every user message: persona (\"you are a concise, technical support agent\"), constraints (\"never share pricing information\"), or output format rules (\"always respond in valid JSON\").\n\n```python\nmessages = [\n    {\"role\": \"system\", \"content\": \"You are a support agent. Be concise. Never guess at pricing — say you'll check.\"},\n    {\"role\": \"user\", \"content\": user_message},\n]\n```\n\nSystem prompts are powerful but not airtight — a sufficiently adversarial user can sometimes get a model to ignore them (\"prompt injection\"), so anything safety-critical (like \"never reveal X\") should also be enforced in your application code, not left entirely to the model following instructions. For everything else — tone, format, role — the system prompt is the right, low-effort lever." },
+    { "section_order": 3, "node_title": "Function calling", "content": "Function calling lets you describe functions your application supports — name, description, and expected arguments — and the model can respond by requesting one be called with specific arguments, instead of only ever returning plain text. Your code is what actually executes the function; the model just decides when and how to ask for it.\n\n```python\ntools = [{\n    \"name\": \"get_order_status\",\n    \"description\": \"Look up an order's current status\",\n    \"parameters\": {\"order_id\": \"string\"}\n}]\n# model responds with: call get_order_status(order_id=\"A1234\")\n# your code runs the real lookup, then sends the result back to the model\n```\n\nThis is the mechanism that turns an LLM from \"a thing that writes text\" into \"a thing that can take grounded actions\" — it's the foundation the AI Customer Support Assistant build (below) needs, and it's the same mechanism agents (Phase 5) use to call tools autonomously." },
+    { "section_order": 3, "node_title": "Structured outputs", "content": "Structured output means constraining an LLM's response to a specific schema — typically JSON matching a Pydantic model — instead of free-form prose, so your code can parse it reliably without regex-scraping a paragraph of text.\n\n```python\nclass Ticket(BaseModel):\n    category: str\n    urgent: bool\n    summary: str\n\nresponse = client.messages.create(\n    ...,\n    response_format=Ticket,  # provider-specific mechanism\n)\n```\n\nMost major providers now support this natively (function calling is one common way it's implemented under the hood); where it isn't natively supported, the fallback is asking for JSON in the prompt and validating the response against your Pydantic model on the way in, retrying if it doesn't parse. Either way, the destination is the same: a validated Python object, not a string you have to trust." },
+    { "section_order": 3, "node_title": "AI APIs", "content": "Calling a hosted LLM from a backend service follows the same basic shape across providers — send messages (system + history + new input) plus parameters (model, temperature, max tokens), get a response back — even though the exact request/response format differs between Anthropic, OpenAI, Gemini, and others.\n\n```python\nresponse = client.messages.create(\n    model=\"claude-...\",\n    max_tokens=500,\n    system=\"You are a support agent.\",\n    messages=[{\"role\": \"user\", \"content\": user_message}],\n)\n```\n\nA few practical habits worth having from the first API call onward: never hardcode API keys in source (load from environment variables or a secrets manager), always set a `max_tokens` you're comfortable paying for, and wrap calls in retry/timeout handling — LLM APIs are network calls, and network calls fail sometimes. This node is where everything from Phase 3 (prompting, system prompts, function calling, structured outputs) comes together into a real working call." },
+    { "section_order": 3, "node_title": "Build: AI Customer Support Assistant", "content": "**Project brief.** Build a working customer support assistant that takes a user's message and returns a helpful, on-brand reply — using everything from this phase.\n\n**Goal:** a FastAPI endpoint that accepts a support message and returns a structured reply (answer text, whether to escalate to a human, and a confidence flag).\n\n**Requirements:** a system prompt establishing tone and boundaries (Phase 3, System prompts); structured output via a Pydantic response model, not free text (Structured outputs); at least one function-calling tool the assistant can invoke — e.g. a mock `get_order_status` lookup (Function calling); sensible handling when the model is uncertain (escalate rather than guess).\n\n**Stack:** FastAPI + Pydantic + your AI provider of choice. No database or frontend required — this is a backend capstone proving the phase's concepts work together, not the finished product." },
+    { "section_order": 4, "node_title": "Document processing", "content": "Before any document can be searched or retrieved, it has to be extracted into plain text and cleaned — stripping PDF layout artifacts, decoding HTML, normalizing whitespace, sometimes OCR'ing scanned pages. This is unglamorous, and it's also where a surprising amount of real RAG quality is won or lost: garbled extraction produces garbled chunks, which produces bad retrieval, no matter how good the embedding model is downstream.\n\n```python\nfrom pypdf import PdfReader\ntext = \"\\n\".join(page.extract_text() for page in PdfReader(\"doc.pdf\").pages)\n```\n\nFor this course's Healthcare AI Knowledge Assistant build, expect source material in mixed formats (PDF guidelines, plain text notes) — the practical skill here is getting clean, consistent text out of whatever format you're handed, before chunking (next node) ever comes into play." },
+    { "section_order": 4, "node_title": "Chunking", "content": "Chunking splits a long document into smaller pieces sized for embedding and retrieval — small enough to be semantically focused (one chunk shouldn't awkwardly straddle two unrelated topics), large enough to retain useful context.\n\nA common starting point: fixed-size chunks (e.g. 500 tokens) with a small overlap (e.g. 50 tokens) so information near a chunk boundary isn't lost entirely:\n\n```python\ndef chunk(text, size=500, overlap=50):\n    return [text[i:i+size] for i in range(0, len(text), size - overlap)]\n```\n\nFor real documents, splitting on natural boundaries (paragraphs, headings, sentences) rather than a raw character count usually retrieves better, since it avoids cutting mid-sentence. There's no universally correct chunk size — it's a real tuning knob, and for the Healthcare AI Knowledge Assistant build it's worth trying more than one size and comparing retrieval quality directly." },
+    { "section_order": 4, "node_title": "Embeddings", "content": "An embedding is a numerical vector representation of a piece of text, produced by a model trained so that semantically similar text ends up as nearby vectors in that space — \"cardiac arrest\" and \"heart attack\" land close together even though they share no words.\n\n```python\nembedding = embed_client.embed(\"chest pain and shortness of breath\")\n# -> [0.021, -0.114, 0.083, ...]  (often 384-1536 numbers)\n```\n\nThis is what turns \"search\" from exact keyword matching into meaning-based retrieval: a query about \"heart attack symptoms\" can retrieve a chunk that only says \"cardiac arrest,\" because their embeddings are close. Every chunk from the previous node gets embedded once at index time; a user's query gets embedded at query time; retrieval (two nodes ahead) is finding the chunks whose vectors are closest to the query's vector — which is exactly the cosine-similarity math from the NumPy node in Phase 1." },
+    { "section_order": 4, "node_title": "Vector databases", "content": "A vector database stores embeddings and answers \"which stored vectors are closest to this query vector\" efficiently, even across millions of chunks — a brute-force NumPy loop works for a demo, but doesn't scale, which is exactly the problem these databases solve.\n\n```python\nresults = vector_db.query(embedding=query_vector, top_k=5)\n# -> the 5 most semantically similar chunks, with their source text\n```\n\nUnder the hood, most use approximate nearest-neighbor indexing (rather than exact search) to stay fast at scale, trading a small amount of accuracy for a large amount of speed. Which vector database to use is mostly a deployment/infrastructure decision (see the pgvector, ChromaDB, and Pinecone nodes) — the concept and the API shape (embed, store, query by similarity) stay the same across all of them." },
+    { "section_order": 4, "node_title": "Retrieval pipelines", "content": "A retrieval pipeline wires the previous four nodes into one working flow: process documents → chunk → embed and store → at query time, embed the user's question and retrieve the top-matching chunks → pass those chunks to the LLM as context alongside the question, so it answers grounded in retrieved fact rather than memory alone.\n\n```python\ndef answer(question: str) -> str:\n    query_vec = embed(question)\n    chunks = vector_db.query(query_vec, top_k=5)\n    context = \"\\n\\n\".join(c.text for c in chunks)\n    prompt = f\"Answer using only this context:\\n{context}\\n\\nQuestion: {question}\"\n    return llm.complete(prompt)\n```\n\nThis is the full RAG loop, and it's the core mechanic behind the Healthcare AI Knowledge Assistant build below — every earlier node in this phase was one stage of this pipeline in isolation." },
+    { "section_order": 4, "node_title": "PostgreSQL pgvector", "content": "`pgvector` is a Postgres extension that adds a native vector column type and similarity search directly to Postgres — which matters concretely for this app: since the whole platform already runs on Supabase/Postgres, pgvector means RAG features need zero extra infrastructure, just a migration adding a `vector` column and an index.\n\n```sql\ncreate extension if not exists vector;\nalter table chunks add column embedding vector(1536);\ncreate index on chunks using ivfflat (embedding vector_cosine_ops);\n\nselect content from chunks\norder by embedding <=> '[0.02,-0.11,...]'\nlimit 5;\n```\n\nFor the Healthcare AI Knowledge Assistant build, this is the recommended default over standing up a separate vector service — one less moving part, one less thing to keep in sync with the rest of the app's data." },
+    { "section_order": 4, "node_title": "ChromaDB (alternative)", "content": "ChromaDB is a lightweight, easy-to-run vector store popular for local development and small projects — install, embed, query, with very little setup. Worth trying as a point of comparison against pgvector, particularly to see how much (or how little) API shape actually changes between vector databases once you've built one retrieval pipeline. Not the recommended default for this app, since it means running a separate store alongside Postgres." },
+    { "section_order": 4, "node_title": "Pinecone (alternative)", "content": "Pinecone is a fully managed, hosted vector database — no infrastructure to run yourself, built for production scale. Worth trying to see the managed-service end of the spectrum, as a contrast to pgvector (self-hosted, bundled with existing infra) and ChromaDB (self-hosted, minimal setup). Not the recommended default for this app for the same reason as ChromaDB: it adds an external service pgvector avoids." },
+    { "section_order": 4, "node_title": "Build: Healthcare AI Knowledge Assistant", "content": "**Project brief.** Build a RAG-powered assistant that answers questions grounded in a set of healthcare documents, rather than from the model's memory alone.\n\n**Goal:** given a question, retrieve the most relevant chunks from your document set and generate an answer that cites or clearly draws on that retrieved content.\n\n**Requirements:** process and chunk a small real document set (clinical guidelines, drug info sheets, or similar — anonymized/public sample data only); embed and store chunks in pgvector; a query endpoint that embeds the question, retrieves top-k chunks, and passes them as context to the LLM; the assistant should decline to answer confidently when retrieval finds nothing relevant, rather than hallucinating.\n\n**Stack:** FastAPI + PostgreSQL/pgvector + your embedding and LLM provider of choice. This is the phase's full pipeline (document processing through retrieval) working end to end on real content." },
+    { "section_order": 5, "node_title": "LangChain", "content": "LangChain is a framework for composing LLM calls, prompts, and integrations into reusable chains, so common patterns (retrieval + generation, multi-step prompting, tool use) don't have to be hand-wired from scratch every time. It's most useful once you've already built the RAG pipeline by hand in Phase 4 — the concepts should feel familiar, and LangChain becomes a way to express them more concisely rather than a new concept:\n\n```python\nfrom langchain.chains import RetrievalQA\nchain = RetrievalQA.from_chain_type(llm=llm, retriever=vector_store.as_retriever())\nanswer = chain.invoke(\"What's the recommended dosage?\")\n```\n\nWorth being honest about the trade-off: frameworks like this trade some transparency and debuggability for less boilerplate. Having built RAG manually first means you know what's happening underneath when something goes wrong inside the abstraction." },
+    { "section_order": 5, "node_title": "LangGraph", "content": "LangGraph models a multi-step AI workflow as an explicit graph of states and transitions, rather than one long implicit chain — useful once a workflow has real branches (\"if the model isn't confident, ask a clarifying question instead of answering\") or loops (\"keep refining until a check passes\").\n\n```python\ngraph = StateGraph(AgentState)\ngraph.add_node(\"retrieve\", retrieve_step)\ngraph.add_node(\"answer\", answer_step)\ngraph.add_conditional_edges(\"retrieve\", needs_clarification, {\n    True: \"ask_clarifying_question\", False: \"answer\"\n})\n```\n\nThe payoff over a plain chain or a freeform loop is control and inspectability: you can see exactly which states a run passed through, add a new branch without rewriting the whole flow, and reason about the workflow as a diagram rather than nested conditionals. This is the tool of choice once the AI agents build (below) needs more structure than a simple loop provides." },
+    { "section_order": 5, "node_title": "Agents", "content": "An agent is an LLM operating in a loop: given a goal, it plans a next step, takes an action (often calling a tool), observes the result, and decides whether to act again or stop — repeating until the goal is met or it gives up. This is a meaningfully different shape from everything earlier in the course, where one prompt produced one response; an agent can take several actions across several turns to get to an answer.\n\nThe core loop, simplified:\n\n```python\nwhile not done:\n    action = llm.decide_next_action(goal, history)\n    result = execute(action)\n    history.append((action, result))\n    done = llm.is_goal_met(goal, history)\n```\n\nAgents are powerful and also the least predictable thing built so far in this course — they can loop, get stuck, or take unintended actions, which is exactly why the next few nodes (tool calling done deliberately, state machines, multi-agent structure) exist as guardrails rather than optional polish." },
+    { "section_order": 5, "node_title": "Tool calling", "content": "Tool calling for an agent is the same function-calling mechanism from Phase 3, used repeatedly and autonomously: instead of one function call per request, the agent decides which tool to call, when, and what to do with the result, possibly calling several tools across multiple steps toward its goal.\n\n```python\ntools = [search_web, get_order_status, send_email]\n# agent loop: model picks a tool, your code executes it,\n# result feeds back into the model's next decision\n```\n\nThe engineering discipline that matters here is being deliberate about which tools an agent actually has access to — every tool you give it is also every action it's capable of taking on its own, including mistakes. Scoping tools tightly (read-only lookups before anything that sends an email or spends money) is a real safety decision, not just an implementation detail." },
+    { "section_order": 5, "node_title": "State machines", "content": "Modeling a multi-step agent workflow as an explicit state machine — defined states, defined transitions between them — trades some flexibility for a lot of predictability: instead of \"the agent decides what to do next based on everything so far\" (powerful, but hard to debug when it goes wrong), you get \"the agent is in state X, and only certain transitions are valid from here.\"\n\nThis is exactly what LangGraph (above) implements. The practical benefit shows up the first time an agent misbehaves: with a freeform loop, you're debugging an open-ended trace; with a state machine, you can point at the exact state and transition where things went sideways, and constrain that one transition without touching the rest of the flow." },
+    { "section_order": 5, "node_title": "Multi-agent workflows", "content": "A multi-agent workflow splits a task across several specialized agents that coordinate rather than relying on one agent to do everything — a researcher agent gathers information, a writer agent drafts from it, a reviewer agent checks the draft, for example — each with a narrower job and a simpler, more reliable prompt than one agent trying to do it all.\n\nThe coordination piece is the actual engineering challenge: deciding how agents hand off work (sequential pipeline vs. a supervisor agent routing between them), and what state they share vs. keep private. LangGraph's state-graph model extends naturally to this — each agent can be a node, with edges defining handoff logic — which is why it's introduced before this node rather than after." },
+    { "section_order": 5, "node_title": "Build: business-task AI agents", "content": "**Project brief.** Build an agent capable of completing a real, multi-step business task end to end — not a single prompt-response, an agent that takes actions and adapts based on what it finds.\n\n**Goal:** pick one concrete task (e.g. \"research a company and draft a one-paragraph summary,\" or \"look up an order, check its status, and draft a customer update\") and build an agent that completes it autonomously using tools.\n\n**Requirements:** at least two tools the agent can call (Tool calling); a defined stopping condition so it doesn't loop indefinitely; state modeled explicitly rather than an unstructured while-loop (State machines / LangGraph) — this is a deliberate constraint, since an unconstrained agent is exactly the failure mode this phase warned about.\n\n**Stack:** LangGraph (or an equivalent state-graph approach) + your tool implementations + your LLM provider of choice." },
+    { "section_order": 6, "node_title": "Docker", "content": "Docker packages an application together with everything it needs to run (dependencies, runtime, config) into a container image — so it runs the same way on your machine, a teammate's machine, and a production server, instead of \"works locally, breaks in prod.\"\n\n```dockerfile\nFROM python:3.12-slim\nWORKDIR /app\nCOPY pyproject.toml .\nRUN pip install .\nCOPY . .\nCMD [\"uvicorn\", \"main:app\", \"--host\", \"0.0.0.0\"]\n```\n\n```bash\ndocker build -t my-ai-service .\ndocker run -p 8000:8000 my-ai-service\n```\n\nEvery AI service built earlier in this course — the support assistant, the RAG assistant, the agents — is a candidate for exactly this treatment. Containerizing it is the first real step toward deploying it somewhere other than your own laptop." },
+    { "section_order": 6, "node_title": "Kubernetes basics", "content": "Kubernetes orchestrates containers across a cluster of machines: it decides where containers run, restarts them if they crash, and scales the number of running copies up or down based on load — the layer above \"I have a container\" that answers \"how do I run this reliably at scale.\"\n\nThe core building blocks worth knowing by name: a **pod** (one or more containers running together, the smallest deployable unit), a **deployment** (declares how many replicas of a pod should be running and manages rolling updates), and a **service** (a stable network address in front of a set of pods, since individual pods come and go).\n\nFor this course's scope, the goal is conceptual fluency — recognizing these terms and what problem each solves — not hand-writing production Kubernetes manifests, which is its own deep discipline beyond an application engineer's usual scope." },
+    { "section_order": 6, "node_title": "CI/CD", "content": "CI/CD automates what would otherwise be manual, error-prone steps: continuous integration runs your tests automatically on every change (catching breakage before it merges), continuous deployment pushes passing changes toward production automatically (catching \"someone forgot to deploy\" or \"someone deployed the wrong branch\").\n\nA minimal GitHub Actions example:\n\n```yaml\non: [push]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: pip install -e . && pytest\n```\n\nFor an AI service specifically, this is where you'd also run any prompt/eval regression tests you've built up — not just unit tests, but checks that a prompt change hasn't quietly degraded response quality. CI/CD is the guardrail that makes shipping changes to an AI service routine instead of nerve-wracking." },
+    { "section_order": 6, "node_title": "Azure OpenAI", "content": "Azure OpenAI provides OpenAI's models (GPT-4 and others) hosted through Microsoft Azure's infrastructure, rather than calling OpenAI's API directly — same underlying models, different deployment path, with Azure's enterprise features (regional deployment, compliance certifications, integration with other Azure services) layered on top.\n\n```python\nfrom openai import AzureOpenAI\nclient = AzureOpenAI(\n    azure_endpoint=\"https://your-resource.openai.azure.com/\",\n    api_key=azure_key,\n    api_version=\"2024-02-01\",\n)\nresponse = client.chat.completions.create(model=\"gpt-4-deployment\", messages=[...])\n```\n\nThis matters mainly for organizations already standardized on Azure, or with compliance requirements Azure specifically satisfies — worth knowing it exists and roughly how the client differs, even though most of this course's projects can use any provider interchangeably via the adapter pattern from the BYOK design (see `06-ai-generation-byok.md`)." },
+    { "section_order": 6, "node_title": "Azure AI Studio", "content": "Azure AI Studio is Microsoft's platform for managing models, prompts, and evaluations within the Azure ecosystem — a UI and toolset for iterating on prompts, comparing model versions, and running evaluations, layered on top of the raw API access from the previous node.\n\nThe underlying concepts (prompt versioning, systematic evaluation against test cases, comparing model behavior across versions) matter regardless of which specific tool you end up using day to day — this node is about recognizing that \"managing prompts and evals\" is itself a discipline with dedicated tooling, not something you're expected to improvise from scratch on every project." },
+    { "section_order": 6, "node_title": "Container deployment", "content": "This node closes the loop from Docker through to a live, reachable service: taking the container image built earlier and actually running it somewhere accessible — a managed container platform (Azure Container Apps, AWS Fargate/ECS, Google Cloud Run) rather than your own laptop.\n\nThe practical checklist that applies across most of these platforms: push your image to a container registry, point the platform's deploy config at it, set environment variables/secrets (your API keys — never baked into the image itself), and configure a health check endpoint so the platform knows if the service is actually up.\n\nThis is the final piece connecting everything built across this course: an AI service that started as a local FastAPI script is now containerized, tested via CI/CD, and running as a real, reachable deployment — the same shape as the portfolio projects in the next phase." },
+    { "section_order": 7, "node_title": "Project 1: Healthcare AI Assistant", "content": "**Project brief.** A portfolio-ready, full-stack build of the Healthcare AI Knowledge Assistant from Phase 4 — the RAG pipeline, now with a real frontend and a production-shaped stack.\n\n**Requirements:** Angular frontend for asking questions and viewing grounded answers (with source chunks shown, not just a bare answer); FastAPI backend serving the RAG pipeline; PostgreSQL + pgvector for storage and retrieval; containerized and deployed somewhere reachable (Phase 6).\n\n**Stack:** Angular + FastAPI + PostgreSQL + pgvector + your LLM provider of choice. This is meant to be demo-able and linkable — the first of three portfolio projects meant to show a complete, real AI product, not just a working script." },
+    { "section_order": 7, "node_title": "Project 2: Finance AI Assistant", "content": "**Project brief.** An assistant that helps a user understand their own financial data, rather than a general finance chatbot.\n\n**Requirements:** statement analysis — parse an uploaded bank/card statement (CSV or similar; pandas from Phase 1 is the right tool here) into structured transactions; expense insights — an LLM-generated summary of spending patterns grounded in the actual parsed data (not invented numbers — this is a good test of \"does the model stick to the real data\" discipline from earlier phases); a UI to upload a statement and view the summary.\n\n**Stack:** your choice, consistent with the rest of your portfolio (Angular/FastAPI recommended for consistency with Project 1). The core engineering challenge here is grounding: making sure every number the assistant states traces back to the real parsed data, not a plausible-sounding guess." },
+    { "section_order": 7, "node_title": "Project 3: Developer AI Copilot", "content": "**Project brief.** A coding assistant focused on three concrete features rather than a general-purpose chatbot: code explanation (given a code snippet, explain what it does in plain language), documentation generation (given a function, generate a docstring/README section), and bug analysis (given code and an error message or failing behavior, suggest likely causes).\n\n**Requirements:** each feature should be its own clear, testable capability — resist the temptation to build one giant \"ask anything about code\" chat with no structure; structured output (Phase 3) is a strong fit here (e.g. bug analysis returning `{likely_cause, suggested_fix, confidence}` rather than a paragraph).\n\n**Stack:** your choice. This project is the natural closer for the roadmap — it's the one most directly aligned with the \"Full-Stack AI Engineer\" career positioning the source roadmap ends on, since it's AI applied to the engineer's own daily tools." }
+  ]
+}
+```

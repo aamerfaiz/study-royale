@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/*
+ * Study Royale design tokens, ported from the prototype canvas.
+ *
+ * Warm cream ground, white cards with a soft violet-tinted shadow, Fredoka for
+ * anything display-weight and Plus Jakarta Sans for body copy. The palette is
+ * defined in oklch to match the prototype exactly.
+ */
+@theme {
+  --font-display: var(--font-fredoka), system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+
+  --color-canvas: oklch(97% 0.012 75);
+  --color-surface: #ffffff;
+  --color-sunken: oklch(96% 0.01 80);
+  --color-hairline: oklch(93% 0.01 80);
+  --color-hairline-strong: oklch(88% 0.01 80);
+
+  --color-ink: oklch(24% 0.02 80);
+  --color-ink-strong: oklch(28% 0.02 80);
+  --color-ink-muted: oklch(52% 0.02 80);
+  --color-ink-faint: oklch(60% 0.01 80);
+
+  /* Deep violet-black used by the "continue learning" and course cards. */
+  --color-night: oklch(20% 0.03 290);
+  --color-night-ink: oklch(82% 0.02 290);
+  --color-night-eyebrow: oklch(78% 0.05 290);
+
+  --color-accent: #7c5cff;
+  --color-accent-hover: #5f3fdb;
+  --color-accent-tint: oklch(95% 0.02 290);
+
+  --color-success: #12b76a;
+  --color-success-tint: oklch(94% 0.06 155);
+  --color-success-ink: oklch(45% 0.13 155);
+
+  --color-gold: #f5a524;
+  --color-gold-tint: oklch(96% 0.05 85);
+  --color-gold-ink: #b7791f;
+
+  --color-flame: #f5793a;
+  --color-flame-tint: oklch(96% 0.03 55);
+
+  --color-danger: #e5484d;
+
+  --shadow-card: 0 1px 3px rgba(20, 10, 40, 0.06);
+  --shadow-lift: 0 4px 16px rgba(20, 10, 40, 0.1);
+
+  --radius-card: 20px;
+  --radius-tile: 16px;
+  --radius-control: 14px;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    /* iOS: keep the bottom nav clear of the home indicator. */
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+}
+
+@utility scrollarea {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.18s ease-out;
+}
+.animate-slide-up {
+  animation: slide-up 0.22s ease-out;
+}
+.animate-fade-in {
+  animation: fade-in 0.15s ease-out;
+}
